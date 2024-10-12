@@ -8,7 +8,16 @@ from contracts import getLocation, send_transaction
 
 addresses = ["0x9C813Ac3ba8333D97d3D96A0C70e6b2dD8Ddc7A8", "0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"]
 
-packages = []
+packages = [
+                Package(id=1, name="Package 1", longitude_start=40.7128, latitude_start=-74.0060, longitude_dest=34.0522, latitude_dest=-118.2437, status="awaiting_assignment"),
+                Package(id=2, name="Package 2", longitude_start=51.5074, latitude_start=-0.1278, longitude_dest=48.8566, latitude_dest=2.3522, status="in_transit"),
+                Package(id=3, name="Package 3", longitude_start=35.6895, latitude_start=139.6917, longitude_dest=37.7749, latitude_dest=-122.4194, status="awaiting_drone")
+            ]
+
+drones = [
+            Drone(id=1, address="0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A"),
+            Drone(id=2, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473")
+]
 
 package_id = 1
 
@@ -33,24 +42,17 @@ async def send_message(message: Message):
 
 @app.get("/getDrones")
 async def get_drones():
-    drones = []
-    id = 1
-    for address in addresses:
-        location = getLocation(address)
+    for drone in drones:
+        print("ADDRESS IS: " + drone.address)
+        location = getLocation(drone.address)
         print(location)
-        drones.append(Drone(
-            id=id,
-            address=address,
-            longitude=location[1],
-            latitude=location[0],
-            status="flying"
-        ))
-        id += 1
-
+        drone.latitude = location[0]
+        drone.longitude = location[1]
     return {"drones": drones}
 
 @app.get("/getPackages")
 async def get_packages():
+    print(packages)
     return {"packages": packages}
 
 @app.get("/getUncollectedPackages")
@@ -66,7 +68,7 @@ async def submit_package(package: Package):
     package.id = package_id
     package_id += 1
     packages.append(package)
-    for address in addresses:
+    for drone in drones:
         print("bazinga")
     return {"message": "Package submitted successfully", "package": package}
 
