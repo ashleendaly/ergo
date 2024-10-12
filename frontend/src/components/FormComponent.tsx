@@ -78,7 +78,6 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
         onChange={(value) => setDestLng(value as number)} // Correctly handle input change
         required
       />
-      <Button handleClick={() => setIsMapVisible(true)}>Choose on Map</Button>
       <br></br>
       <br></br> 
       <StyledInput
