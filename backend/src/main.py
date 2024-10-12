@@ -8,6 +8,8 @@ from contracts import getLocation, send_transaction
 
 addresses = ["0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A", "0x94D4709Af9575a502bD5DFF661Bb1d566979D93d"]
 
+packages = []
+
 app = FastAPI()
 
 # CORS settings
@@ -45,10 +47,17 @@ async def get_drones():
 
     return {"drones": drones}
 
+@app.get("/getPackages")
+async def get_packages():
+    return {"packages": packages}
+
 @app.post("/addPackage")
 async def submit_package(package: Package):
     print(f"Received package: {package}")
-    return {"message": "Package received successfully", "package": package}
+    packages.append(package)
+    for address in addresses:
+        print("bazinga")
+    return {"message": "Package submitted successfully", "package": package}
 
 # Function to run updateLocation every 5 seconds in the background
 async def run_location_updater():
