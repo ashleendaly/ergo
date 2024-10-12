@@ -4,6 +4,7 @@ import fetchDrones from '../hooks/fetchDrones.ts';
 import FormComponent from './FormComponent.tsx';
 import Card from './Card.tsx';
 import { Button } from './Button.tsx';
+import Loader from './Loader.tsx';
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -34,7 +35,7 @@ const Sidebar = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 0:
-        if (loading) return <p>Loading drones...</p>;
+        if (loading) return <Loader />;
         if (error) return <p>Error: {error}</p>;
 
         return (
