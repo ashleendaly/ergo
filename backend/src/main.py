@@ -3,7 +3,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from Drone import Drone
+from Package import Package
 from contracts import getLocation, send_transaction
+
+addresses = ["0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A"]
 
 app = FastAPI()
 
@@ -25,8 +28,7 @@ async def send_message(message: Message):
     return {"response": f"Location received: {message.message}"}
 
 @app.get("/getDrones")
-async def get_drones():
-    addresses = ["0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A"]
+async def get_drones(addresses):
     drones = []
     id = 1
     for address in addresses:
@@ -36,6 +38,11 @@ async def get_drones():
         id += 1
 
     return {"drones": drones}
+
+# @app.post("/addPackage")
+# async def submit_package(package: Package):
+#     print(f"Received package: {package}")
+#     return {"message": "Package received successfully", "package": package}
 
 # Function to run updateLocation every 5 seconds in the background
 async def run_location_updater():
@@ -48,4 +55,5 @@ async def run_location_updater():
 # Startup event handler to trigger the background task
 @app.on_event("startup")
 async def start_location_updater():
-    asyncio.create_task(run_location_updater())  # Launch background task on startup
+    # asyncio.create_task(run_location_updater())  # Launch background task on startup
+    print("bazinga")
