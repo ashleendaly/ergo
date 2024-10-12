@@ -71,6 +71,8 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
         required
       />
       <Button handleClick={() => setFormState(1)}>Confirm</Button>
+      <br></br>
+      <br></br> 
       <StyledInput
         label="Destination Longitude:"
         type="number"
@@ -78,8 +80,6 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
         onChange={(value) => setDestLng(value as number)} // Correctly handle input change
         required
       />
-      <br></br>
-      <br></br> 
       <StyledInput
         label="Destination Latitude:"
         type="number"
