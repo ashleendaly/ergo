@@ -13,16 +13,34 @@
 
 // export default Sidebar;
 import React from 'react';
+import fetchDrones from '../hooks/fetchDrones';
 
-const Sidebar = () => {
+const SidebarComponent: React.FC = () => {
+  const { drones, loading, error } = fetchDrones();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
-    <div className="fixed right-0 top-0 h-full w-[25%] p-4 bg-gray-800 text-white shadow-lg">
-      <h2 className="text-lg font-bold">Sidebar</h2>
-      <p>Your content here</p>
-      <button className="mt-4 p-2 bg-blue-500 rounded">Action 1</button>
-      <button className="mt-2 p-2 bg-green-500 rounded">Action 2</button>
+    <div className="sidebar">
+      <h2>Drones</h2>
+      <ul>
+        {drones.map((drone) => (
+          <li key={drone.id}>
+            <h3>Drone ID: {drone.id}</h3>
+            <p>Address: {drone.address}</p>
+            <p>Status: {drone.status}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default Sidebar;
+export default SidebarComponent;
+

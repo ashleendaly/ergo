@@ -6,13 +6,13 @@ import Map, {
 import { type LngLatBoundsLike } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useRef, useState } from "react";
-import redDroneIcon from '../assets/red-drone.svg';
+
 import { Drone } from '../models/drone.ts';
+
+import redDroneIcon from '../assets/red-drone.svg';
 import greenDroneIcon from '../assets/green-drone.svg';
   
 const DroneMap = () => {
-  
-  
     const mapRef = useRef<MapRef>(null);
   
     const defaultMapBounds: LngLatBoundsLike = [
@@ -22,15 +22,12 @@ const DroneMap = () => {
   
     const [mapBounds] = useState<LngLatBoundsLike>(defaultMapBounds);
       
-    const markerCoordinates = { longitude: -4.25, latitude: 55.85 };
-
     const drones: Drone[] = [
         { id: 1, address: "Location A", longitude: -4.25, latitude: 55.85, status: 'flying' },
         { id: 2, address: "Location B", longitude: -4.20, latitude: 55.90, status: 'waiting' },
         // Add more drones as needed
     ];
-    
-  
+
     return (
       <div className="h-[100dvh]">
         <div className="h-full w-[75%]">
