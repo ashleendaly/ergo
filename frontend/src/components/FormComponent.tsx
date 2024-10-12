@@ -60,6 +60,9 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
         onChange={(value) => setCurrentLng(value as number)} // Correctly handle input change
         required
       />
+      <Button handleClick={() => setIsMapVisible(true)}>Choose on Map</Button>
+      <br></br>
+      <br></br>
       <StyledInput
         label="Current Latitude:"
         type="number"
@@ -75,6 +78,9 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
         onChange={(value) => setDestLng(value as number)} // Correctly handle input change
         required
       />
+      <Button handleClick={() => setIsMapVisible(true)}>Choose on Map</Button>
+      <br></br>
+      <br></br> 
       <StyledInput
         label="Destination Latitude:"
         type="number"
@@ -84,6 +90,8 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
       />
       <Button handleClick={() => setFormState(0)}>Confirm</Button>       
       <Button handleClick={handleSubmit}>Submit Package</Button> {/* Handle click by calling the submit handler */}
+      <br></br>
+      <br></br>
     </form>
   );
 };
