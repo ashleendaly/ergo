@@ -7,13 +7,15 @@ interface TabsProps {
 
 const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
   return (
-    <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+    <ul className="flex flex-wrap text-sm font-medium text-center">
       <li className="me-2">
         <a
           href="#"
           onClick={() => onTabClick(0)}
           className={`inline-block px-4 py-3 rounded-lg ${
-            activeTab === 0 ? 'text-white bg-blue-600 active' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white'
+            activeTab === 0 
+              ? 'text-[#171717] bg-[#f4f4f4]'
+              : 'text-white bg-[#171717] hover:bg-gray-300'
           }`}
           aria-current={activeTab === 0 ? 'page' : undefined}
         >
@@ -25,7 +27,9 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           href="#"
           onClick={() => onTabClick(1)}
           className={`inline-block px-4 py-3 rounded-lg ${
-            activeTab === 1 ? 'text-white bg-blue-600 active' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white'
+            activeTab === 1 
+              ? 'text-[#171717] bg-[#fafafa]'
+              : 'text-white bg-[#171717] hover:bg-gray-300'
           }`}
           aria-current={activeTab === 1 ? 'page' : undefined}
         >

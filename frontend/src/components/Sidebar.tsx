@@ -42,7 +42,8 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="fixed right-0 top-0 h-full w-[25%] p-4 bg-gray-800 text-white shadow-lg">
+    <div className="fixed right-0 top-0 h-full w-[25%] p-4 text-white shadow-lg"
+      style={{ backgroundColor: '#343332'}} >
       <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
       {renderContent()}
       <Button handleClick={handleClick}>

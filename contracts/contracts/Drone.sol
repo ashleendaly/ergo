@@ -10,11 +10,11 @@ contract Drone {
         longitude = _longitude;
     }
 
-    function sendDrone(int256 _latitude, int256 _longitude) public {
-        int256 incrementAmountLatitude = _latitude/10;
-        int256 incrementAmountLongitude = _longitude/10;
-        updateLocation(incrementAmountLatitude, incrementAmountLongitude);
-    }
+    // function sendDrone(int256 _latitude, int256 _longitude) public {
+    //     int256 incrementAmountLatitude = _latitude/10;
+    //     int256 incrementAmountLongitude = _longitude/10;
+    //     updateLocation(incrementAmountLatitude, incrementAmountLongitude);
+    // }
 
     function updateLocation(int256 _latitude, int256 _longitude) public {
         latitude = _latitude;
