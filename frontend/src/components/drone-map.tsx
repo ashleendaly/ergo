@@ -29,6 +29,11 @@ const DroneMap = () => {
     return <div>Error: {error}</div>; // Error handling
   }
 
+  const handleMapClick = (event: any) => {
+    const { lngLat } = event;
+    console.log(`Longitude: ${lngLat.lng}, Latitude: ${lngLat.lat}`);
+  };
+
   return (
     <div className="h-[100dvh]">
       <div className="h-full w-[75%]">
@@ -44,6 +49,7 @@ const DroneMap = () => {
           mapStyle={"mapbox://styles/mapbox/dark-v9"}
           renderWorldCopies={false}
           maxBounds={defaultMapBounds}
+          onClick={handleMapClick}
         >
           <ScaleControl unit="metric" />
 
