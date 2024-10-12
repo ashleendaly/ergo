@@ -39,10 +39,10 @@ async def get_drones(addresses):
 
     return {"drones": drones}
 
-# @app.post("/addPackage")
-# async def submit_package(package: Package):
-#     print(f"Received package: {package}")
-#     return {"message": "Package received successfully", "package": package}
+@app.post("/addPackage")
+async def submit_package(package: Package):
+    print(f"Received package: {package}")
+    return {"message": "Package received successfully", "package": package}
 
 # Function to run updateLocation every 5 seconds in the background
 async def run_location_updater():
