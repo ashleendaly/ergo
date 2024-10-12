@@ -26,7 +26,8 @@ const Sidebar = () => {
               <li key={drone.id}>
                 <Card 
                   title={`Drone ID: ${drone.id}`} 
-                  address={`Address: ${shortenAddress(drone.address)}`}
+                  shortAddress={`Address: ${shortenAddress(drone.address)}`}
+                  address={drone.address}
                   longitude={`Longitude: ${drone.longitude}`}
                   latitude={`Latitude: ${drone.latitude}`}
                   status={`Status: ${drone.status}`} 
