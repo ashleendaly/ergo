@@ -1,6 +1,6 @@
 interface buttonProps {
   children: React.ReactNode;
-  handleClick: () => void;
+  handleClick: (e: any) => void;
 }
 
 const Button: React.FC<buttonProps> = ({children, handleClick}) => {

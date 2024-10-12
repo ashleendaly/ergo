@@ -2,12 +2,24 @@ import { useState } from 'react';
 import Tabs from './Tabs';
 import { Button } from './Button';
 import fetchDrones from '../hooks/fetchDrones.ts';
+import FormComponent from './FormComponent.tsx';
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { drones, loading, error } = fetchDrones(); // Fetch drones data
   console.log("ran fetchDrones");
   console.log(drones);
+
+  const handlePackageSubmit = (packageDetails: {
+    packageName: string;
+    currentLat: number | '';
+    currentLng: number | '';
+    destLat: number | '';
+    destLng: number | '';
+  }) => {
+    console.log("Package form submitted with values:");
+    console.log(packageDetails);
+  };
 
   const handleClick = () => {
     console.log("Drone command sent!");
@@ -35,7 +47,9 @@ const Sidebar = () => {
         );
 
       case 1:
-        return <p>tab 2 content</p>;
+        return (
+          <FormComponent onSubmit={handlePackageSubmit} />
+        );
       default:
         return null;
     }
@@ -46,9 +60,11 @@ const Sidebar = () => {
       style={{ backgroundColor: '#343332'}} >
       <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
       {renderContent()}
-      <Button handleClick={handleClick}>
-        Send drone to location
-      </Button>
+      {activeTab === 0 && (
+        <Button handleClick={handleClick}>
+          Send drone to location
+        </Button>
+      )}
     </div>
   );
 };
