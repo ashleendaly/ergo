@@ -34,7 +34,13 @@ async def get_drones():
     for address in addresses:
         location = getLocation(address)
         print(location)
-        drones.append(Drone(id, address, location[1], location[0], "flying"))
+        drones.append(Drone(
+            id=id,
+            address=address,
+            longitude=location[1],
+            latitude=location[0],
+            status="flying"
+        ))
         id += 1
 
     return {"drones": drones}
