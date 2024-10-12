@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from Drone import Drone
+from backend.src.Drone import Drone
 
 app = FastAPI()
 

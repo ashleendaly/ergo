@@ -1,0 +1,98 @@
+[
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "_latitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_longitude",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "getLocation",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "latitude",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "longitude",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "_latitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_longitude",
+          "type": "int256"
+        }
+      ],
+      "name": "sendDrone",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "_latitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_longitude",
+          "type": "int256"
+        }
+      ],
+      "name": "updateLocation",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
