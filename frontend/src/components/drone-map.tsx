@@ -7,8 +7,10 @@ import { Drone } from '../models/drone';
 
 import redDroneIcon from '../assets/red-drone.svg';
 import greenDroneIcon from '../assets/green-drone.svg';
+import { useLocation } from "../context/clickedLatLong.tsx";
 
 const DroneMap = () => {
+  const { updateLocation } = useLocation();
   const mapRef = useRef<MapRef>(null);
 
   const defaultMapBounds: LngLatBoundsLike = [
@@ -31,6 +33,7 @@ const DroneMap = () => {
 
   const handleMapClick = (event: any) => {
     const { lngLat } = event;
+    updateLocation(lngLat.lat, lngLat.lng)
     console.log(`Longitude: ${lngLat.lng}, Latitude: ${lngLat.lat}`);
   };
 
