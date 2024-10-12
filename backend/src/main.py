@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from Drone import Drone
+from contracts import getLocation
+
 
 app = FastAPI()
 
@@ -24,11 +26,16 @@ async def send_message(message: Message):
     return {"response": f"Location received: {message.message}"}
 
 @app.get("/getDrones")
-async def get_drones(addresses):
+async def get_drones():
 
-    test_drone1 = Drone(1, "001", -4.25, 55.85, "flying")
-    test_drone2 = Drone(2, "002",  -4.20, 55.90, "waiting")
+    addresses = ["0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A"]
+    drones = []
 
-    drones = [test_drone1.__dict__, test_drone2.__dict__]
+    id = 1
+    for address in addresses:
+        location = getLocation(address)
+        print(location)
+        drones.append(Drone(id, address, location[0], location[1], "flying"))
+        id += 1
 
     return {"drones": drones}
