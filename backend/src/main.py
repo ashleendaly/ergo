@@ -25,7 +25,6 @@ async def send_message(message: Message):
 
 @app.get("/getDrones")
 async def get_drones(addresses):
-    for address in addresses:
 
     test_drone1 = Drone(1, "001", -4.25, 55.85, "flying")
     test_drone2 = Drone(2, "002",  -4.20, 55.90, "waiting")
