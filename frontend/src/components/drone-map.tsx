@@ -1,6 +1,7 @@
 import Map, {
     MapRef,
     ScaleControl,
+    Marker,
   } from "react-map-gl";
   import { type LngLatBoundsLike } from "mapbox-gl";
   import "mapbox-gl/dist/mapbox-gl.css";
@@ -17,6 +18,8 @@ import Map, {
     ];
   
     const [mapBounds] = useState<LngLatBoundsLike>(defaultMapBounds);
+      
+    const markerCoordinates = { longitude: -4.25, latitude: 55.85 };
     
   
     return (
@@ -34,8 +37,13 @@ import Map, {
             mapStyle={"mapbox://styles/mapbox/dark-v9"}
             renderWorldCopies={false}
             maxBounds={defaultMapBounds}
+            dragPan={false}
           >
             <ScaleControl unit="metric" />
+                    
+            <Marker longitude={markerCoordinates.longitude} latitude={markerCoordinates.latitude}>
+                <div style={{ backgroundColor: 'red', borderRadius: '50%', width: '20px', height: '20px' }} />
+            </Marker>
           </Map>
         </div>
       </div>
