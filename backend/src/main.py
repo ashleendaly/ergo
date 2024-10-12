@@ -10,6 +10,8 @@ addresses = ["0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A", "0x94D4709Af9575a502b
 
 packages = []
 
+package_id = 1
+
 app = FastAPI()
 
 # CORS settings
@@ -61,6 +63,8 @@ async def get_uncollected_packages():
 async def submit_package(package: Package):
     print(f"Received package: {package}")
     package.status = "pending"
+    package.id = package_id
+    package_id += 1
     packages.append(package)
     for address in addresses:
         print("bazinga")

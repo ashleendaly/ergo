@@ -12,15 +12,32 @@ const Sidebar = () => {
   console.log("ran fetchDrones");
   console.log(drones);
 
-  const handlePackageSubmit = (packageDetails: {
+  const handlePackageSubmit = async (packageDetails: {
     packageName: string;
     currentLat: number | '';
     currentLng: number | '';
     destLat: number | '';
     destLng: number | '';
   }) => {
-    console.log("Package form submitted with values:");
-    console.log(packageDetails);
+    try {
+      const response = await fetch("/addPackage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(packageDetails),
+      });
+  
+      // Check if the response is OK (status in the range 200-299)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      console.log("Package submitted successfully:", result);
+    } catch (error) {
+      console.error("Error submitting package:", error);
+    }
   };
 
   const handleClick = () => {
@@ -68,11 +85,7 @@ const Sidebar = () => {
     <div className="fixed right-0 top-0 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
       <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
       {renderContent()}
-      {activeTab === 0 && (
-        <Button handleClick={handleClick}>
-          Send drone to location
-        </Button>
-      )}
+      {activeTab === 0}
     </div>
   );
 };
