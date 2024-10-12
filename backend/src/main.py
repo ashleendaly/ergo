@@ -6,7 +6,7 @@ from Drone import Drone
 from Package import Package
 from contracts import getLocation, send_transaction
 
-addresses = ["0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A"]
+addresses = ["0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A", "0x94D4709Af9575a502bD5DFF661Bb1d566979D93d"]
 
 app = FastAPI()
 
