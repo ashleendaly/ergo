@@ -9,18 +9,19 @@ const fetchDrones = () => {
   useEffect(() => {
     const fetchDrones = async () => {
       try {
-          const response = await fetch('http://localhost:8080/getDrones');
+        const response = await fetch('http://localhost:8080/getDrones');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
 
-        const dronesData: Drone[] = data.drones.map((droneArray: any[]) => ({
-          id: droneArray[0],
-          address: droneArray[1],
-          longitude: droneArray[2],
-          latitude: droneArray[3],
-          status: droneArray[4] as 'flying' | 'waiting',
+        // Update the mapping according to the structure of the received data
+        const dronesData: Drone[] = data.drones.map((drone: any) => ({
+          id: drone.id,                  // Access the id property directly
+          address: drone.address,        // Access the address property directly
+          longitude: drone.longitude,    // Access the longitude property directly
+          latitude: drone.latitude,      // Access the latitude property directly
+          status: drone.status as 'flying' | 'waiting', // Ensure type safety
         }));
 
         setDrones(dronesData);
@@ -31,7 +32,12 @@ const fetchDrones = () => {
       }
     };
 
+    // Fetch drones immediately and then every 5 seconds
     fetchDrones();
+    const intervalId = setInterval(fetchDrones, 5000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   return { drones, loading, error };

@@ -1,46 +1,55 @@
-// import React from 'react';
-// import '../Sidebar.css'; // Import styles
+import { useState } from 'react';
+import Tabs from './Tabs';
+import { Button } from './Button';
+import fetchDrones from '../hooks/fetchDrones.ts';
 
-// const Sidebar = () => {
-//   return (
-//     <div className="sidebar">
-//       <nav className="sidebar-nav">
-//         <p>here is the sidebar</p>
-//       </nav>
-//     </div>
-//   );
-// };
+const Sidebar = () => {
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const { drones, loading, error } = fetchDrones(); // Fetch drones data
+  console.log("ran fetchDrones");
+  console.log(drones);
 
-// export default Sidebar;
-import React from 'react';
-import fetchDrones from '../hooks/fetchDrones';
+  const handleClick = () => {
+    console.log("Drone command sent!");
+  };
 
-const SidebarComponent: React.FC = () => {
-  const { drones, loading, error } = fetchDrones();
+  const renderContent = () => {
+    switch (activeTab) {
+      case 0:
+        // Tab 1: Displaying a list of active drones
+        if (loading) return <p>Loading drones...</p>;
+        if (error) return <p>Error: {error}</p>;
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+        return (
+          <ul>
+            {drones.map((drone) => (
+              <li key={drone.id}>
+                <p>ID: {drone.id}</p>
+                <p>Address: {drone.address}</p>
+                <p>Longitude: {drone.longitude}</p>
+                <p>Latitude: {drone.latitude}</p>
+                <p>Status: {drone.status}</p>
+              </li>
+            ))}
+          </ul>
+        );
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+      case 1:
+        return <p>tab 2 content</p>;
+      default:
+        return null;
+    }
+  };
 
   return (
-    <div className="sidebar">
-      <h2>Drones</h2>
-      <ul>
-        {drones.map((drone) => (
-          <li key={drone.id}>
-            <h3>Drone ID: {drone.id}</h3>
-            <p>Address: {drone.address}</p>
-            <p>Status: {drone.status}</p>
-          </li>
-        ))}
-      </ul>
+    <div className="fixed right-0 top-0 h-full w-[25%] p-4 bg-gray-800 text-white shadow-lg">
+      <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
+      {renderContent()}
+      <Button handleClick={handleClick}>
+        Send drone to location
+      </Button>
     </div>
   );
 };
 
-export default SidebarComponent;
-
+export default Sidebar;
