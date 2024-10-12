@@ -10,11 +10,45 @@ with open('../abi/Drone.json') as abi_file:
 
 w3 = Web3(Web3.HTTPProvider('https://sepolia.infura.io/v3/' + os.getenv("INFURA_API_KEY")))
 
-# address = '0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A'
-
 def getLocation(address):
-    checksum_address = Web3.to_checksum_address(address)
+    checksum_address = w3.to_checksum_address(address)
     contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
     location = contract_instance.functions.getLocation().call()
-    return (location[0]/10000, location[1]/10000)
+    return (location[0] / 10000, location[1] / 10000)
 
+def send_transaction(address):
+    checksum_address = w3.to_checksum_address(address)
+    contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
+    location = contract_instance.functions.getLocation().call()
+
+    account = "0x73b07eFFdf8c9AD8721B7e977609798F0FFBdAe3"
+    private_key = os.getenv("PRIVATE_KEY")
+    if not private_key:
+        raise Exception("Private key is not set in the environment variables")
+
+    lat = location[0] - 500
+    long = location[1] - 500
+    print(lat, long)
+    
+    nonce = w3.eth.get_transaction_count(account)  # Get nonce for the transaction
+    transaction = contract_instance.functions.updateLocation(
+        int(location[0] - 100),  # Increment location coordinates
+        int(location[1] - 100)
+    ).build_transaction({
+        'from': account,
+        'nonce': nonce,
+        'gas': 100000,  # Set an appropriate gas limit
+        'gasPrice': w3.to_wei('10', 'gwei'),  # Set an appropriate gas price
+        'chainId': 11155111  # Chain ID for Sepolia Testnet
+    })
+
+    # Sign the transaction with the private key
+    signed_tx = w3.eth.account.sign_transaction(transaction, private_key=private_key)
+
+    # Send the transaction to the blockchain
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
+
+    # Wait for the transaction receipt to ensure it is mined
+    receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+
+    return receipt
