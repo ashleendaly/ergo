@@ -54,6 +54,7 @@ async def get_packages():
 @app.post("/addPackage")
 async def submit_package(package: Package):
     print(f"Received package: {package}")
+    package.status = "pending"
     packages.append(package)
     for address in addresses:
         print("bazinga")
