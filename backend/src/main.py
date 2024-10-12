@@ -24,9 +24,11 @@ async def send_message(message: Message):
     return {"response": f"Location received: {message.message}"}
 
 @app.get("/getDrones")
-async def get_location():
-    test_drone1 = Drone(1, "001", 55.843670, -4.351840, "flying")
-    test_drone2 = Drone(2, "002", 55.873120, -4.287790, "waiting")
+async def get_drones(addresses):
+    for address in addresses:
+
+    test_drone1 = Drone(1, "001", -4.25, 55.85, "flying")
+    test_drone2 = Drone(2, "002",  -4.20, 55.90, "waiting")
 
     drones = [test_drone1.__dict__, test_drone2.__dict__]
 
