@@ -15,5 +15,6 @@ w3 = Web3(Web3.HTTPProvider('https://sepolia.infura.io/v3/' + os.getenv("INFURA_
 def getLocation(address):
     checksum_address = Web3.to_checksum_address(address)
     contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
-    return contract_instance.functions.getLocation().call()
+    location = contract_instance.functions.getLocation().call()
+    return (location[0]/10000, location[1]/10000)
 
