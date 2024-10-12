@@ -21,16 +21,15 @@ const Sidebar = () => {
         if (error) return <p>Error: {error}</p>;
 
         return (
-          <ul>
+          <ul className="space-y-4">
             {drones.map((drone) => (
               <li key={drone.id}>
                 <Card 
                   title={`Drone ID: ${drone.id}`} 
-                  address=                
-                  {`Address: ${shortenAddress(drone.address)}`}
+                  address={`Address: ${shortenAddress(drone.address)}`}
                   longitude={`Longitude: ${drone.longitude}`}
-                  latitude= {`Latitude: ${drone.latitude}`}
-                status={`Status: ${drone.status}\n`} 
+                  latitude={`Latitude: ${drone.latitude}`}
+                  status={`Status: ${drone.status}`} 
                 />
               </li>
             ))}
@@ -45,7 +44,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="fixed right-0 top-0 h-full w-[25%] p-4 text-white shadow-lg" style={{ backgroundColor: '#343332' }}>
+    <div className="fixed right-0 top-0 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
       <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
       {renderContent()}
     </div>
