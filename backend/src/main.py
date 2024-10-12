@@ -6,7 +6,7 @@ from Drone import Drone
 from Package import Package
 from contracts import getLocation, send_transaction
 
-addresses = ["0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A", "0x94D4709Af9575a502bD5DFF661Bb1d566979D93d"]
+addresses = ["0x9C813Ac3ba8333D97d3D96A0C70e6b2dD8Ddc7A8", "0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"]
 
 packages = []
 
@@ -75,7 +75,7 @@ async def run_location_updater():
     while True:
         await asyncio.sleep(1)  
         print("Updating drone location...")
-        send_transaction("0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A")
+        send_transaction(addresses[0])
         
 
 # Startup event handler to trigger the background task
