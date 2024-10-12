@@ -28,7 +28,7 @@ async def send_message(message: Message):
     return {"response": f"Location received: {message.message}"}
 
 @app.get("/getDrones")
-async def get_drones(addresses):
+async def get_drones():
     drones = []
     id = 1
     for address in addresses:
