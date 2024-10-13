@@ -82,6 +82,10 @@ async def submit_package(package: Package):
             winning_drone = drone
             winning_drone_address = drone.address
 
+    winning_drone.status = "Assigned Task"
+
+    package.status = "Drone Assigned"
+
     # update drone location to pick package
     await update_location(winning_drone_address, int_package_latitude_start, int_package_longitude_start)
 
@@ -100,7 +104,7 @@ async def submit_package(package: Package):
     # delete package
     packages.remove(package)
 
-    return {"message": "Package dropped"}
+    return {"message": "Package Dropped"}
 
 async def update_location(address, dest_lat, dest_long):
     location = getLocation(address)
