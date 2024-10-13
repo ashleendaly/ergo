@@ -10,7 +10,7 @@ interface DroneCardProps {
   status: string;
 }
 
-const Card: React.FC<DroneCardProps> = ({ title, address, shortAddress, longitude, latitude, status }) => {
+const DroneCard: React.FC<DroneCardProps> = ({ title, address, shortAddress, longitude, latitude, status }) => {
   return (
     <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-white">
         <img src={blackDroneIcon} />
@@ -31,4 +31,4 @@ const Card: React.FC<DroneCardProps> = ({ title, address, shortAddress, longitud
   );
 };
 
-export default Card;
+export default DroneCard;

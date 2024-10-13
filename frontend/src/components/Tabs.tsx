@@ -8,7 +8,7 @@ interface TabsProps {
 const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
   return (
     <ul className="flex flex-wrap text-sm font-medium text-center">
-      <li className="me-2 mb-3">
+      <li className="me-2 mt-4">
         <a
           href="#"
           onClick={() => onTabClick(0)}
@@ -22,7 +22,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           General Overview
         </a>
       </li>
-      <li className="me-2 mb-3">
+      <li className="me-2 mt-4">
         <a
           href="#"
           onClick={() => onTabClick(1)}
@@ -36,7 +36,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           Drones
         </a>
       </li>
-      <li className="me-2 mb-3">
+      <li className="me-2 mt-4">
         <a
           href="#"
           onClick={() => onTabClick(2)}
@@ -50,7 +50,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           Packages
         </a>
       </li>
-      <li className="me-3">
+      <li className="me-3 mt-3 mb-4">
         <a
           href="#"
           onClick={() => onTabClick(3)}
