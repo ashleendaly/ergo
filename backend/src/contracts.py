@@ -22,10 +22,9 @@ def make_bid(address, pickup_latitude, pickup_longitude, dropoff_latitude, dropo
     bid = contract_instance.functions.makeBid(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude).call()
     return bid
 
-def send_transaction(address, lat, long):
+async def send_transaction(address, lat, long):
     checksum_address = w3.to_checksum_address(address)
     contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
-    location = contract_instance.functions.getLocation().call()
 
     account = "0x73b07eFFdf8c9AD8721B7e977609798F0FFBdAe3"
     private_key = os.getenv("PRIVATE_KEY")
