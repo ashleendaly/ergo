@@ -91,11 +91,17 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="overflow-y-scroll z-10 fixed right-0 top-20 h-full w-[25%] p-4 text-white shadow-lg" style={{ backgroundColor: '#343332' }}>
-      <div className="h-full overflow-y-auto space-y-4">
-        <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
-        {renderContent()}
-      </div>
+    <div className="bg-opacity-50 z-10 fixed right-0 top-20 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
+      <span>
+        <div className="overflow-y-scroll fixed right-0 top-19 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
+          <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
+          {renderContent()}
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+        </div>
+      </span>     
     </div>
   );
 };
