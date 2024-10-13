@@ -96,11 +96,7 @@ const Sidebar = () => {
     <div className="overflow-y-scroll bg-opacity-50 z-10 fixed right-0 top-20 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
       <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
       {renderContent()}
-      {activeTab === 0 && (
-        <Button handleClick={handleClick}>
-          Send drone to location
-        </Button>
-      )}
+      {activeTab === 0}
     </div>
   );
 };
