@@ -27,7 +27,7 @@ def send_transaction(address, lat, long):
     contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
 
     account = "0x73b07eFFdf8c9AD8721B7e977609798F0FFBdAe3"
-    private_key = os.getenv("PRIVATE_KEY")
+    # private_key = os.getenv("PRIVATE_KEY")
     if not private_key:
         raise Exception("Private key is not set in the environment variables")
     
