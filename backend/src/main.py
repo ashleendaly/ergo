@@ -68,6 +68,7 @@ async def submit_package(package: Package):
     package_id += 1
     packages.append(package)
 
+    # get winning drone
     minimum_bid = math.inf
     winning_drone_address = ""
     for drone in drones:
@@ -75,6 +76,14 @@ async def submit_package(package: Package):
         if bid < minimum_bid:
             minimum_bid = bid
             winning_drone_address = drone.address
+
+    # update drone location to pick package
+    # set status to picked up package
+    # set package to picked up
+    # update drone location to drop off point
+    # set status to pending
+    # delete package
+
     return {"message": "Package submitted successfully", "package": package, "winning_drone_address" : winning_drone_address}
 
 async def update_location(address, dest_lat, dest_long):
