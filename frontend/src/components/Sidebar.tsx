@@ -5,39 +5,27 @@ import FormComponent from './FormComponent.tsx';
 import Card from './Card.tsx';
 import { Button } from './Button.tsx';
 import Loader from './Loader.tsx';
+import useSubmitPackage from '../hooks/useSubmitPackage.ts';
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { drones, loading, error } = fetchDrones();
+  const {submitPackage, successMessage} = useSubmitPackage()
+
   console.log("ran fetchDrones");
   console.log(drones);
 
   const handlePackageSubmit = async (packageDetails: {
-    packageName: string;
-    currentLat: number | '';
-    currentLng: number | '';
-    destLat: number | '';
-    destLng: number | '';
+    name: string;
+    longitude_start: number | '';
+    latitude_start: number | '';
+    longitude_dest: number | '';
+    latitude_dest: number | '';
   }) => {
-    try {
-      const response = await fetch("/addPackage", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(packageDetails),
-      });
-  
-      // Check if the response is OK (status in the range 200-299)
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-  
-      const result = await response.json();
-      console.log("Package submitted successfully:", result);
-    } catch (error) {
-      console.error("Error submitting package:", error);
-    }
+    console.log("Package form submitted with values:");
+    console.log(packageDetails);
+    await submitPackage(packageDetails)
+    console.log(successMessage)
   };
 
   const handleClick = () => {

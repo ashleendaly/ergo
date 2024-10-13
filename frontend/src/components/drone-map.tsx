@@ -3,10 +3,13 @@ import { type LngLatBoundsLike } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useRef, useState } from "react";
 import fetchDrones from '../hooks/fetchDrones.ts';
+import useGetUncollectedPackages from '../hooks/useGetUncollectedPackages.ts';
 import { Drone } from '../models/drone';
+import { Package } from '../models/package';
 
 import redDroneIcon from '../assets/red-drone.svg';
 import greenDroneIcon from '../assets/green-drone.svg';
+
 import { useLocation } from "../context/clickedLatLong.tsx";
 
 const DroneMap = () => {
@@ -20,15 +23,21 @@ const DroneMap = () => {
 
   const [mapBounds] = useState<LngLatBoundsLike>(defaultMapBounds);
 
-  // Use the fetchDrones hook to get the drones
-  const { drones, loading, error } = fetchDrones();
+  const { packages, loading: packagesLoading, error: packagesError } = useGetUncollectedPackages();
 
-  if (loading) {
-    return <div>Loading drones...</div>; // Loading state
+  // Use the fetchDrones hook to get the drones
+  const { drones, loading: dronesLoading, error: dronesError } = fetchDrones();
+
+  if (dronesLoading || packagesLoading) {
+    return <div>Loading...</div>; // Loading state for both drones and packages
   }
 
-  if (error) {
-    return <div>Error: {error}</div>; // Error handling
+  if (dronesError) {
+    return <div>Error fetching drones: {dronesError}</div>; // Error handling for drones
+  }
+
+  if (packagesError) {
+    return <div>Error fetching packages: {packagesError}</div>; // Error handling for packages
   }
 
   const handleMapClick = (event: any) => {
@@ -65,6 +74,25 @@ const DroneMap = () => {
                   width: '20px',
                   height: '20px',
                 }}
+              />
+            </Marker>
+          ))}
+
+          {packages.map((pkg: Package) => (
+            <Marker
+              key={pkg.id}
+              longitude={pkg.longitude_dest} // Assuming you want to place the marker at the destination
+              latitude={pkg.latitude_dest}
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            >
+              <div
+                style={{
+                  width: '15px',
+                  height: '15px',
+                  backgroundColor: pkg.status === 'awaiting_assignment' ? 'red' : 'yellow',
+                  borderRadius: '2px', // Optional: to give it a slight rounded corner
+                }}
+                title={`Package: ${pkg.name}, Status: ${pkg.status}`} // Optional: Tooltip with package details
               />
             </Marker>
           ))}
