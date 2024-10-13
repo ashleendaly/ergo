@@ -87,7 +87,7 @@ async def submit_package(package: Package):
     winning_drone.status = "Assigned Task"
 
     print("Package " + str(package.name) + " has been assigned a drone " + str(winning_drone.id))
-    package.status = "Drone Assigned"
+    package.status = "awaiting_drone"
 
     # update drone location to pick package
     await update_location(winning_drone_address, int_package_latitude_start, int_package_longitude_start)
@@ -98,12 +98,12 @@ async def submit_package(package: Package):
 
     # set package to picked up
     print("Package " + str(package.name) + " is now in transit")
-    package.status = "In Transit"
+    package.status = "in_transit"
 
     # update drone location to drop off point
     await update_location(winning_drone_address, int_package_latitude_dest, int_package_longitude_dest)
 
-    package.status = "Delivered"
+    package.status = "delivered"
 
     # set status to waiting
     winning_drone.status = "Waiting"

@@ -32,7 +32,7 @@ const useGetUncollectedPackages = () => {
             latitude_dest: pkg.latitude_dest,
             status: pkg.status as 'awaiting_assignment' | 'awaiting_drone',
           }));
-
+          console.log("packages", uncollectedPackages)
           setPackages(uncollectedPackages);
         } else {
           throw new Error('Unexpected data structure');
