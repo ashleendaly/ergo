@@ -16,7 +16,7 @@ def getLocation(address):
     location = contract_instance.functions.getLocation().call()
     return (location[0] / 10000, location[1] / 10000)
 
-def send_transaction(address, lat_increment, long_increment):
+def send_transaction(address, lat, long):
     checksum_address = w3.to_checksum_address(address)
     contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
     location = contract_instance.functions.getLocation().call()
@@ -28,8 +28,8 @@ def send_transaction(address, lat_increment, long_increment):
     
     nonce = w3.eth.get_transaction_count(account)  # Get nonce for the transaction
     transaction = contract_instance.functions.updateLocation(
-        int(location[0] - lat_increment),  # Increment location coordinates
-        int(location[1] - long_increment)
+        int(lat),  
+        int(long)
     ).build_transaction({
         'from': account,
         'nonce': nonce,
