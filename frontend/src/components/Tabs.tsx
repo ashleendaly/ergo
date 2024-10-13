@@ -19,7 +19,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           }`}
           aria-current={activeTab === 0 ? 'page' : undefined}
         >
-          Drones
+          General Overview
         </a>
       </li>
       <li className="me-2">
@@ -33,7 +33,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           }`}
           aria-current={activeTab === 1 ? 'page' : undefined}
         >
-          Packages
+          Drones
         </a>
       </li>
       <li className="me-2">
@@ -47,7 +47,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           }`}
           aria-current={activeTab === 2 ? 'page' : undefined}
         >
-          General Overview
+          Packages
         </a>
       </li>
       <li className="me-3">
