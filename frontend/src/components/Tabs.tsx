@@ -50,7 +50,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           Packages
         </a>
       </li>
-      <li className="me-3 mt-3 mb-4">
+      <li className="me-3 mt-4">
         <a
           href="#"
           onClick={() => onTabClick(3)}
