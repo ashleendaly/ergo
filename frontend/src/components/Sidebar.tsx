@@ -30,6 +30,7 @@ const Sidebar = () => {
 
         return (
           <div className=" min-w-60 items-center justify-center min-h-full">
+            <h5 className="text-2xl font-semibold mb-3 text-white">Drones</h5>
             <ul className="space-y-4">
               {drones.map((drone) => (
                 <li key={drone.id}>
@@ -51,7 +52,7 @@ const Sidebar = () => {
         if (packagesError) return <p>Error: {packagesError}</p>;
         return (
           <div>
-            <h5 className="text-2xl font-semibold text-white">Packages</h5>
+            <h5 className="text-2xl font-semibold mb-3 text-white">Packages</h5>
             {packages.length === 0 ? (
               <p>No packages available.</p>
             ) : (

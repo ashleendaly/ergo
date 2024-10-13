@@ -22,6 +22,7 @@ const DroneMap = () => {
 
   const [mapBounds] = useState<LngLatBoundsLike>(defaultMapBounds);
   const [selectedPath, setSelectedPath] = useState<{ coordinates: [number, number][] } | null>(null);
+  const [tooltipInfo, setTooltipInfo] = useState<{ x: number, y: number, content: string } | null>(null);
 
   const { packages, loading: packagesLoading, error: packagesError } = useGetUncollectedPackages();
   const { drones, loading: dronesLoading, error: dronesError } = fetchDrones();
@@ -31,37 +32,46 @@ const DroneMap = () => {
   }
 
   if (dronesError) {
-    return <div>Error fetching drones: {dronesError}</div>; // Error handling for drones
+    return <div>Error fetching drones: {dronesError}</div>;
   }
 
   if (packagesError) {
-    return <div>Error fetching packages: {packagesError}</div>; // Error handling for packages
+    return <div>Error fetching packages: {packagesError}</div>;
   }
 
   const handleMapClick = (event: any) => {
     const { lngLat } = event;
-    updateLocation(lngLat.lat, lngLat.lng)
-    console.log(`Longitude: ${lngLat.lng}, Latitude: ${lngLat.lat}`);
+    updateLocation(lngLat.lat, lngLat.lng);
   };
 
   const handlePackageClick = (pkg: Package) => {
     const path: [number, number][] = [
-      [pkg.longitude_start, pkg.latitude_start], // Start position
-      [pkg.longitude_dest, pkg.latitude_dest],   // Destination position
+      [pkg.longitude_start, pkg.latitude_start],
+      [pkg.longitude_dest, pkg.latitude_dest],
     ];
 
-    // Check if the selected path is already the one we want to toggle
     if (selectedPath && selectedPath.coordinates[0][0] === pkg.longitude_start && selectedPath.coordinates[0][1] === pkg.latitude_start) {
-      // Deselect the path if it's already selected
       setSelectedPath(null);
     } else {
-      // Set the new path if it's not the currently selected one
       setSelectedPath({ coordinates: path });
     }
   };
 
+  const handleMouseEnter = (drone: Drone, event: React.MouseEvent) => {
+    const { clientX, clientY } = event;
+    setTooltipInfo({
+      x: clientX,
+      y: clientY,
+      content: `Drone ID: ${drone.id}, Status: ${drone.status}, Longitude: ${drone.longitude}, Latitude: ${drone.latitude}`
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTooltipInfo(null);
+  };
+
   return (
-    <div className="h-[100dvh]">
+    <div className="h-[100dvh] relative">
       <div className="h-full w-[100%]">
         <Map
           ref={mapRef}
@@ -88,6 +98,8 @@ const DroneMap = () => {
                   width: '20px',
                   height: '20px',
                 }}
+                onMouseEnter={(event) => handleMouseEnter(drone, event)}
+                onMouseLeave={handleMouseLeave}
               />
             </Marker>
           ))}
@@ -105,7 +117,7 @@ const DroneMap = () => {
                   width: '10px',
                   height: '10px',
                   backgroundColor: pkg.status === 'Awaiting Assignment' ? '#FA8128' : 'yellow',
-                  borderRadius: '2px', 
+                  borderRadius: '2px',
                 }}
                 title={`Package: ${pkg.name}, Status: ${pkg.status}`}
               />
@@ -125,22 +137,32 @@ const DroneMap = () => {
                 id="lineLayer"
                 type="line"
                 paint={{
-                  "line-color": "#FF5733", // Customize the color of the line
-                  "line-width": 3,         // Customize the width of the line
+                  "line-color": "#FF5733",
+                  "line-width": 3,
                   "line-opacity": 0.8,
-                  "line-dasharray": [2, 2], // Dashed line for better visibility
+                  "line-dasharray": [2, 2],
                 }}
                 layout={{
                   "line-cap": "round",
                   "line-join": "round",
-                  // "line-arrow": "arrow", // Enable arrows on the line
-                  // "symbol-placement": "line",
-                  // "line-arrow-size": 1.5, // Adjust the size of the arrow
                 }}
               />
             </Source>
           )}
         </Map>
+
+        {tooltipInfo && (
+          <div
+            className="absolute bg-white text-black p-2 rounded shadow-lg"
+            style={{
+              left: tooltipInfo.x + 10,
+              top: tooltipInfo.y - 30,
+              pointerEvents: 'none'
+            }}
+          >
+            {tooltipInfo.content}
+          </div>
+        )}
       </div>
     </div>
   );
