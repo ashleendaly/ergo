@@ -43,9 +43,7 @@ async def send_message(message: Message):
 @app.get("/getDrones")
 async def get_drones():
     for drone in drones:
-        print("ADDRESS IS: " + drone.address)
         location = getLocation(drone.address)
-        print(location)
         drone.latitude = location[0]
         drone.longitude = location[1]
     return {"drones": drones}
