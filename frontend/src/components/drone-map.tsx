@@ -9,6 +9,7 @@ import { Package } from '../models/package';
 import Loader from "./Loader.tsx";
 import redDroneIcon from '../assets/red-drone.svg';
 import greenDroneIcon from '../assets/green-drone.svg';
+import packageIcon from '../assets/package.svg';
 
 import { useLocation } from "../context/clickedLatLong.tsx";
 
@@ -93,7 +94,7 @@ const DroneMap = () => {
                 style={{
                   width: '10px',
                   height: '10px',
-                  backgroundColor: pkg.status === 'awaiting_assignment' ? 'red' : 'yellow',
+                  backgroundColor: pkg.status === 'awaiting_assignment' ? '#FA8128' : 'yellow',
                   borderRadius: '2px', // Optional: to give it a slight rounded corner
                 }}
                 title={`Package: ${pkg.name}, Status: ${pkg.status}`} // Optional: Tooltip with package details
