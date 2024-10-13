@@ -5,6 +5,6 @@ export interface Package {
     latitude_start: number;
     longitude_dest: number;
     latitude_dest: number;
-    status: 'awaiting_assignment' | 'awaiting_drone' | 'in_transit' | 'delivered';
+    status: 'Awaiting Assignment' | 'Drone Assigned' | 'In Transit' | 'Delivered';
   }
   

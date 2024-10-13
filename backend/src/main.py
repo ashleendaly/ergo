@@ -4,10 +4,11 @@ from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from Drone import Drone
 from Package import Package
-from contracts import getLocation, send_transaction, make_bid
+from contracts import get_location, send_transaction, make_bid
 import math
 
 packages = []
+
 
 drones = [
             Drone(id=1, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"),
@@ -40,7 +41,7 @@ async def send_message(message: Message):
 @app.get("/getDrones")
 async def get_drones():
     for drone in drones:
-        location = getLocation(drone.address)
+        location = get_location(drone.address)
         drone.latitude = location[0]
         drone.longitude = location[1]
     return {"drones": drones}
@@ -82,23 +83,29 @@ async def submit_package(package: Package):
             winning_drone = drone
             winning_drone_address = drone.address
 
+    print("Drone " + str(winning_drone.id) + " has been assigned a task.")
     winning_drone.status = "Assigned Task"
 
+    print("Package " + str(package.name) + " has been assigned a drone " + str(winning_drone.id))
     package.status = "Drone Assigned"
 
     # update drone location to pick package
     await update_location(winning_drone_address, int_package_latitude_start, int_package_longitude_start)
 
     # set status to picked up package
+    print(str(winning_drone.id) + " has now picked up package " + str(package.name))
     winning_drone.status = "Transporting Package"
 
     # set package to picked up
-    package.status = "Picked Up"
+    print("Package " + str(package.name) + " is now in transit")
+    package.status = "In Transit"
 
     # update drone location to drop off point
     await update_location(winning_drone_address, int_package_latitude_dest, int_package_longitude_dest)
 
-    # set status to pending
+    package.status = "Delivered"
+
+    # set status to waiting
     winning_drone.status = "Waiting"
 
     # delete package
@@ -107,7 +114,7 @@ async def submit_package(package: Package):
     return {"message": "Package Dropped"}
 
 async def update_location(address, dest_lat, dest_long):
-    location = getLocation(address)
+    location = get_location(address)
     curr_lat = int(location[0] * 10000)
     curr_long = int(location[1] * 10000)
     increments = 3

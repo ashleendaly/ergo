@@ -16,7 +16,6 @@ const Header: React.FC = () => {
             <a href="/about" className="nav-link">About</a>
             <a href="/launch" className="nav-link">Launch</a>
         </nav> */}
-        <div className='bottomBorder'></div>
       </div>    
     </header>
   );

@@ -104,7 +104,7 @@ const DroneMap = () => {
                 style={{
                   width: '10px',
                   height: '10px',
-                  backgroundColor: pkg.status === 'awaiting_assignment' ? '#FA8128' : 'yellow',
+                  backgroundColor: pkg.status === 'Awaiting Assignment' ? '#FA8128' : 'yellow',
                   borderRadius: '2px', 
                 }}
                 title={`Package: ${pkg.name}, Status: ${pkg.status}`}

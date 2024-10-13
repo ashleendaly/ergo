@@ -4,20 +4,14 @@ import fetchDrones from '../hooks/fetchDrones.ts';
 import FormComponent from './FormComponent.tsx';
 import DroneCard from './DroneCard.tsx';
 import PackageCard from './PackageCard.tsx';
-import Modal from './Modal.tsx';
 import useSubmitPackage from '../hooks/useSubmitPackage.ts';
 import useGetUncollectedPackages from '../hooks/useGetUncollectedPackages.ts';
-
-// const [isModalOpen, setIsModalOpen] = useState(false);
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { drones, error: dronesError } = fetchDrones();
   const { packages, error: packagesError } = useGetUncollectedPackages();
-  const {submitPackage} = useSubmitPackage()
-
-  console.log("ran fetchDrones");
-  console.log(drones);
+  const { submitPackage } = useSubmitPackage();
 
   const handlePackageSubmit = (packageDetails: {
     name: string;
@@ -26,73 +20,68 @@ const Sidebar = () => {
     longitude_dest: number | '';
     latitude_dest: number | '';
   }) => {
-    console.log("Package form submitted with values:");
-    console.log(packageDetails);
-    submitPackage(packageDetails)
-  };
-
-  const handleClick = () => {
-    console.log("Drone command sent!");
-  };
-
-  const shortenAddress = (address: string) => {
-    if (!address) return '';
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+    submitPackage(packageDetails);
   };
 
   const renderContent = () => {
     switch (activeTab) {
       case 0:
-        return (
-          <div>
-            <h5 className="mb-6 text-2xl font-semibold tracking-tight text-[#f4f4f4] text-white">General Overview</h5>
-          </div>
-        );
+        return <h5 className="text-2xl font-semibold text-white">General Overview</h5>;
 
       case 1:
         if (dronesError) return <p>Error: {dronesError}</p>;
 
         return (
-          <ul className="space-y-4">
-            {drones.map((drone) => (
-              <li key={drone.id}>
-                <DroneCard 
-                  title={`Drone ID: ${drone.id}`} 
-                  shortAddress={`Address: ${shortenAddress(drone.address)}`}
-                  address={drone.address}
-                  longitude={`Longitude: ${drone.longitude}`}
-                  latitude={`Latitude: ${drone.latitude}`}
-                  status={`Status: ${drone.status}`} 
-                />
-              </li>
-            ))}
-          </ul>
+          <div className=" min-w-60 items-center justify-center min-h-full">
+            <ul className="space-y-4">
+              {drones.map((drone) => (
+                <li key={drone.id}>
+                  <DroneCard
+                    title={`Drone ID: ${drone.id}`}
+                    address={drone.address}
+                    longitude={`Longitude: ${drone.longitude}`}
+                    latitude={`Latitude: ${drone.latitude}`}
+                    status={`Status: ${drone.status}`}
+                    shortAddress={''}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         );
 
       case 2:
         if (packagesError) return <p>Error: {packagesError}</p>;
         return (
           <div>
-            <span>
-              <br></br>
-            <h5 className="mb-6 text-2xl font-semibold tracking-tight text-[#f4f4f4] text-white">Packages</h5>
+            <h5 className="text-2xl font-semibold text-white">Packages</h5>
+            {packages.length === 0 ? (
+              <p>No packages available.</p>
+            ) : (
+              <ul className="space-y-4">
+                {packages.map((pkg) => (
+                  <li key={pkg.id}>
+                    <PackageCard
+                      id={`Package ID: ${pkg.id}`}
+                      name={`Package Name: ${pkg.name}`}
+                      longitude_start={`Longitude start: ${pkg.longitude_start}`}
+                      latitude_start={`Latitude start: ${pkg.latitude_start}`}
+                      longitude_dest={`Longitude destination: ${pkg.longitude_dest}`}
+                      latitude_dest={`Latitude destination: ${pkg.latitude_dest}`}
+                      status={`Status: ${pkg.status}`}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        );
+
+      case 3:
+        return (
+          <div>
+            <h5 className="text-2xl font-semibold text-white">Edit Package</h5>
             <FormComponent onSubmit={handlePackageSubmit} />
-            </span>
-            <ul className="space-y-4">
-              {packages.map((pkg) => (
-                <li key={pkg.id}>
-                  <PackageCard
-                    id={pkg.id}
-                    name={pkg.name}
-                    longitude_start={pkg.longitude_start}
-                    latitude_start={pkg.latitude_start}
-                    longitude_dest={pkg.longitude_dest}
-                    latitude_dest={pkg.latitude_dest}
-                    status={pkg.status}
-                  />
-                </li>
-              ))};
-            </ul>
           </div>
         );
 
@@ -102,16 +91,11 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="bg-opacity-50 z-10 fixed right-0 top-20 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
-    <span>
-    <div className="fixed overflow-auto right-0 top-19 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
+    <div className="bg-opacity-50 z-30 fixed right-0 h-full w-[25%] p-4 text-white shadow-lg flex flex-col" style={{ backgroundColor: '#343332' }}>
       <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
-      {renderContent()}
-    </div>
-    {/* <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-      <div>Edit your package details here.</div>
-    </Modal> */}
-    </span>
+      <div className="flex-1 overflow-y-auto">
+        {renderContent()}
+      </div>
     </div>
   );
 };
