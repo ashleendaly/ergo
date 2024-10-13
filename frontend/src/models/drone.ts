@@ -3,6 +3,6 @@ export interface Drone {
     address: string;
     longitude: number;
     latitude: number;
-    status: 'flying' | 'waiting';
+    status: 'Flying' | 'Waiting';
   }
   

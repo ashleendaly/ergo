@@ -82,7 +82,7 @@ const DroneMap = () => {
           {drones.map((drone: Drone) => (
             <Marker key={drone.id} longitude={drone.longitude} latitude={drone.latitude}>
               <img
-                src={drone.status === 'flying' ? redDroneIcon : greenDroneIcon}
+                src={drone.status === 'Waiting' ? redDroneIcon : greenDroneIcon}
                 alt="Drone"
                 style={{
                   width: '20px',

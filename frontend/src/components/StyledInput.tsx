@@ -1,4 +1,3 @@
-// src/components/StyledInput.tsx
 import React from 'react';
 
 interface StyledInputProps {
