@@ -1,4 +1,5 @@
 import DroneMap from "./components/drone-map";
+import Loader from "./components/Loader";
 import Sidebar from './components/Sidebar';
 import { LocationProvider } from "./context/clickedLatLong";
 
