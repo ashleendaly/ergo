@@ -32,15 +32,16 @@ async def send_transaction(address, lat, long):
         raise Exception("Private key is not set in the environment variables")
     
     nonce = w3.eth.get_transaction_count(account)  # Get nonce for the transaction
+    gas_price = w3.eth.gas_price  # Get the current network gas price
     transaction = contract_instance.functions.updateLocation(
-        int(lat),  # Increment location coordinates
+        int(lat), # Increment location coordinates
         int(long)
     ).build_transaction({
         'from': account,
         'nonce': nonce,
-        'gas': 200000,  # Set an appropriate gas limit
-        'gasPrice': w3.to_wei('20', 'gwei'),  # Set an appropriate gas price
-        'chainId': 11155111  # Chain ID for Sepolia Testnet
+        'gas': 300000,
+        'gasPrice': int(gas_price * 1.2),
+        'chainId': 11155111
     })
 
     # Sign the transaction with the private key

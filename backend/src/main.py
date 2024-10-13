@@ -86,16 +86,16 @@ async def submit_package(package: Package):
     await update_location(winning_drone_address, int_package_latitude_start, int_package_longitude_start)
 
     # set status to picked up package
-    winning_drone.status = "transporting package"
+    winning_drone.status = "Transporting Package"
 
     # set package to picked up
-    package.status = "picked up"
+    package.status = "Picked Up"
 
     # update drone location to drop off point
     await update_location(winning_drone_address, int_package_latitude_dest, int_package_longitude_dest)
 
     # set status to pending
-    winning_drone.status = "pending"
+    winning_drone.status = "Waiting"
 
     # delete package
     packages.remove(package)
