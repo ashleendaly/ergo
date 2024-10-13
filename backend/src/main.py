@@ -4,9 +4,8 @@ from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from Drone import Drone
 from Package import Package
-from contracts import getLocation, send_transaction
-
-addresses = ["0x9C813Ac3ba8333D97d3D96A0C70e6b2dD8Ddc7A8", "0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473", "0x8b41eC3100aF936D0E4970F69d66F80B37085D75", "0xCA80257794aC965Ea52187EFae78686f8A3F0C4b", "0x0681fE329eCc94c9E45639571100511440C54B91"]
+from contracts import getLocation, send_transaction, make_bid
+import math
 
 packages = [
                 Package(id=1, name="Package 1", longitude_start=-4.269, latitude_start=55.85, longitude_dest=-4.30, latitude_dest=55.89, status="awaiting_assignment"),
@@ -44,9 +43,7 @@ async def send_message(message: Message):
 @app.get("/getDrones")
 async def get_drones():
     for drone in drones:
-        print("ADDRESS IS: " + drone.address)
         location = getLocation(drone.address)
-        print(location)
         drone.latitude = location[0]
         drone.longitude = location[1]
     return {"drones": drones}
@@ -67,10 +64,9 @@ async def submit_package(package: Package):
     global package_id
     global packages
 
-    # Set the package ID and increment the global ID
     package.id = package_id
     print(f"Assigning package ID: {package_id}")
-    package_id += 1  # Increment the global ID after assigning
+    package_id += 1
 
     packages.append(package)
     print(f"New package added: {package}")
@@ -78,17 +74,35 @@ async def submit_package(package: Package):
 
     return {"message": "Package submitted successfully", "package": package}
 
-@app.post("/updateLocation")
+    minimum_bid = math.inf
+    winning_drone_address = ""
+    for drone in drones:
+        bid = make_bid(drone.address, int(package.latitude_start)*10000, int(package.longitude_start)*10000, int(package.latitude_dest)*10000, int(package.longitude_dest)*10000)
+        if bid < minimum_bid:
+            minimum_bid = bid
+            winning_drone_address = drone.address
+
+    # update drone location to pick package
+    # set status to picked up package
+    # set package to picked up
+    # update drone location to drop off point
+    # set status to pending
+    # delete package
+
+    return {"message": "Package submitted successfully", "package": package, "winning_drone_address" : winning_drone_address}
+
 async def update_location(address, dest_lat, dest_long):
     location = getLocation(address)
     curr_lat = location[0]
     curr_long = location[1]
-    increments = 8
-    increment_lat = (dest_lat-curr_lat)/increments
-    increment_long = (dest_long-curr_long)/increments
+    increments = 5
+    increment_lat = (int(float(dest_lat)*10000)-curr_lat)/increments
+    increment_long = (int(float(dest_long)*10000)-curr_long)/increments
     for i in range(increments):
         await asyncio.sleep(1)  
         print("Updating drone location...")
-        send_transaction(address, (i+1)*increment_lat, (i+1)*increment_long)
+        print(curr_lat+((i+1)*increment_lat))
+        print(curr_long+((i+1)*increment_long))
+        send_transaction(address, curr_lat+((i+1)*increment_lat), curr_long+((i+1)*increment_long))
         
 

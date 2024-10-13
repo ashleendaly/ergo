@@ -16,7 +16,13 @@ def getLocation(address):
     location = contract_instance.functions.getLocation().call()
     return (location[0] / 10000, location[1] / 10000)
 
-def send_transaction(address, lat_increment, long_increment):
+def make_bid(address, pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude):
+    checksum_address = w3.to_checksum_address(address)
+    contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
+    bid = contract_instance.functions.makeBid(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude).call()
+    return bid
+
+def send_transaction(address, lat, long):
     checksum_address = w3.to_checksum_address(address)
     contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
     location = contract_instance.functions.getLocation().call()
