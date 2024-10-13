@@ -26,28 +26,28 @@ const Sidebar = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 0:
-        return (
-          <div>
-            <h5 className="text-2xl font-semibold text-white">General Overview</h5>
-          </div>
-        );
+        return <h5 className="text-2xl font-semibold text-white">General Overview</h5>;
 
       case 1:
         if (dronesError) return <p>Error: {dronesError}</p>;
 
         return (
-          <ul className="space-y-4">
-            {drones.map((drone) => (
-              <li key={drone.id}>
-                <DroneCard
-                  title={`Drone ID: ${drone.id}`}
-                  address={drone.address}
-                  longitude={`Longitude: ${drone.longitude}`}
-                  latitude={`Latitude: ${drone.latitude}`}
-                  status={`Status: ${drone.status}`} shortAddress={''}                />
-              </li>
-            ))}
-          </ul>
+          <div className=" min-w-60 items-center justify-center min-h-full">
+            <ul className="space-y-4">
+              {drones.map((drone) => (
+                <li key={drone.id}>
+                  <DroneCard
+                    title={`Drone ID: ${drone.id}`}
+                    address={drone.address}
+                    longitude={`Longitude: ${drone.longitude}`}
+                    latitude={`Latitude: ${drone.latitude}`}
+                    status={`Status: ${drone.status}`}
+                    shortAddress={''}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         );
 
       case 2:
@@ -91,17 +91,11 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="bg-opacity-50 z-10 fixed right-0 top-20 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
-      <span>
-        <div className="overflow-y-scroll fixed right-0 top-19 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
-          <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
-          {renderContent()}
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-        </div>
-      </span>     
+    <div className="bg-opacity-50 z-30 fixed right-0 h-full w-[25%] p-4 text-white shadow-lg flex flex-col" style={{ backgroundColor: '#343332' }}>
+      <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
+      <div className="flex-1 overflow-y-auto">
+        {renderContent()}
+      </div>
     </div>
   );
 };
