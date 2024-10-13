@@ -40,7 +40,7 @@ def send_transaction(address, lat, long):
         'from': account,
         'nonce': nonce,
         'gas': 200000,  # Set an appropriate gas limit
-        'gasPrice': w3.to_wei('30', 'gwei'),  # Set an appropriate gas price
+        'gasPrice': w3.to_wei('20', 'gwei'),  # Set an appropriate gas price
         'chainId': 11155111  # Chain ID for Sepolia Testnet
     })
 
