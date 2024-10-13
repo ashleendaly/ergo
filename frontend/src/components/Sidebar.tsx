@@ -13,12 +13,12 @@ const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { drones, loading: dronesLoading, error: dronesError } = fetchDrones();
   const { packages, loading: packagesLoading, error: packagesError } = useGetUncollectedPackages();
-  const {submitPackage, successMessage} = useSubmitPackage()
+  // const {submitPackage, successMessage} = useSubmitPackage()
 
   console.log("ran fetchDrones");
   console.log(drones);
 
-  const handlePackageSubmit = async (packageDetails: {
+  const handlePackageSubmit = (packageDetails: {
     name: string;
     longitude_start: number | '';
     latitude_start: number | '';
@@ -27,9 +27,6 @@ const Sidebar = () => {
   }) => {
     console.log("Package form submitted with values:");
     console.log(packageDetails);
-    await submitPackage(packageDetails)
-    console.log(successMessage)
-    await fetchDrones()
   };
 
   const handleClick = () => {
@@ -95,10 +92,14 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="fixed right-0 top-0 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
+    <div className="overflow-y-scroll bg-opacity-50 z-10 fixed right-0 top-20 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
       <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
       {renderContent()}
-      {activeTab === 0}
+      {activeTab === 0 && (
+        <Button handleClick={handleClick}>
+          Send drone to location
+        </Button>
+      )}
     </div>
   );
 };
