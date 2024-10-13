@@ -61,8 +61,6 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
         onChange={(value) => setCurrentLng(value as number)} // Correctly handle input change
         required
       />
-      <br></br>
-      <br></br>
       <StyledInput
         label="Current Latitude:"
         type="number"

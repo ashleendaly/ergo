@@ -62,11 +62,18 @@ async def get_uncollected_packages():
 @app.post("/addPackage")
 async def submit_package(package: Package):
     global package_id
-    package.id = package_id
-    package_id += 1
-    packages.append(package)
+    global packages
 
-    # get winning drone
+    package.id = package_id
+    print(f"Assigning package ID: {package_id}")
+    package_id += 1
+
+    packages.append(package)
+    print(f"New package added: {package}")
+    print(f"Next package ID will be: {package_id}")
+
+    return {"message": "Package submitted successfully", "package": package}
+
     minimum_bid = math.inf
     winning_drone_address = ""
     for drone in drones:
