@@ -11,9 +11,9 @@ import useGetUncollectedPackages from '../hooks/useGetUncollectedPackages.ts';
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
-  const { drones, loading: dronesLoading, error: dronesError } = fetchDrones();
-  const { packages, loading: packagesLoading, error: packagesError } = useGetUncollectedPackages();
-  // const {submitPackage, successMessage} = useSubmitPackage()
+  const { drones, error: dronesError } = fetchDrones();
+  const { packages, error: packagesError } = useGetUncollectedPackages();
+  const {submitPackage} = useSubmitPackage()
 
   console.log("ran fetchDrones");
   console.log(drones);
@@ -27,6 +27,7 @@ const Sidebar = () => {
   }) => {
     console.log("Package form submitted with values:");
     console.log(packageDetails);
+    submitPackage(packageDetails)
   };
 
   const handleClick = () => {
