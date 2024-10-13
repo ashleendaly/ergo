@@ -62,7 +62,7 @@ const DroneMap = () => {
     setTooltipInfo({
       x: clientX,
       y: clientY,
-      content: `Drone ID: ${drone.id}, Status: ${drone.status}, Longitude: ${drone.longitude}, Latitude: ${drone.latitude}`
+      content: `Drone ID: ${drone.id}, Status: ${drone.status}`
     });
   };
 
