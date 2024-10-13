@@ -11,11 +11,11 @@ const Header: React.FC = () => {
             <img src="/images/mw-logo.png" alt="MW Logo" className="logo-image" />
             <img src="/images/ergo-logo.png" alt="Ergo Logo" className="logo-image" />
         </div>
-        <nav className="nav-links">
+        {/* <nav className="nav-links">
             <a href="/" className="nav-link">Home</a>
             <a href="/about" className="nav-link">About</a>
             <a href="/launch" className="nav-link">Launch</a>
-        </nav>
+        </nav> */}
         <div className='bottomBorder'></div>
       </div>    
     </header>

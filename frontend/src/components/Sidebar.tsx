@@ -13,17 +13,17 @@ const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { drones, loading: dronesLoading, error: dronesError } = fetchDrones();
   const { packages, loading: packagesLoading, error: packagesError } = useGetUncollectedPackages();
-  const {submitPackage, successMessage} = useSubmitPackage()
+  // const {submitPackage, successMessage} = useSubmitPackage()
 
   console.log("ran fetchDrones");
   console.log(drones);
 
   const handlePackageSubmit = (packageDetails: {
-    packageName: string;
-    currentLat: number | '';
-    currentLng: number | '';
-    destLat: number | '';
-    destLng: number | '';
+    name: string;
+    longitude_start: number | '';
+    latitude_start: number | '';
+    longitude_dest: number | '';
+    latitude_dest: number | '';
   }) => {
     console.log("Package form submitted with values:");
     console.log(packageDetails);
