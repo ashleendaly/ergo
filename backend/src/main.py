@@ -118,6 +118,6 @@ async def update_location(address, dest_lat, dest_long):
         print("Updating drone location...")
         print(curr_lat+((i+1)*increment_lat))
         print(curr_long+((i+1)*increment_long))
-        await send_transaction(address, int(curr_lat+((i+1)*increment_lat)), int(curr_long+((i+1)*increment_long)))
+        send_transaction(address, int(curr_lat+((i+1)*increment_lat)), int(curr_long+((i+1)*increment_long)))
         
 
