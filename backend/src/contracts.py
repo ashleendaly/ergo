@@ -22,7 +22,7 @@ def make_bid(address, pickup_latitude, pickup_longitude, dropoff_latitude, dropo
     bid = contract_instance.functions.makeBid(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude).call()
     return bid
 
-async def send_transaction(address, lat, long):
+def send_transaction(address, lat, long):
     checksum_address = w3.to_checksum_address(address)
     contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
 
