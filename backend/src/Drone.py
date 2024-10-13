@@ -7,4 +7,4 @@ class Drone(BaseModel):
     address: str
     longitude: Optional[float] = None
     latitude: Optional[float] = None
-    status: str = "inactive"
+    status: str = "Waiting"
