@@ -2,7 +2,8 @@ import { useState } from 'react';
 import Tabs from './Tabs';
 import fetchDrones from '../hooks/fetchDrones.ts';
 import FormComponent from './FormComponent.tsx';
-import Card from './Card.tsx';
+import DroneCard from './DroneCard.tsx';
+import PackageCard from './PackageCard.tsx';
 import { Button } from './Button.tsx';
 import Loader from './Loader.tsx';
 import useSubmitPackage from '../hooks/useSubmitPackage.ts';
@@ -10,7 +11,8 @@ import useGetUncollectedPackages from '../hooks/useGetUncollectedPackages.ts';
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
-  const { drones, loading, error } = fetchDrones();
+  const { drones, loading: dronesLoading, error: dronesError } = fetchDrones();
+  const { packages, loading: packagesLoading, error: packagesError } = useGetUncollectedPackages();
   const {submitPackage, successMessage} = useSubmitPackage()
 
   console.log("ran fetchDrones");
@@ -42,13 +44,13 @@ const Sidebar = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 0:
-        if (error) return <p>Error: {error}</p>;
+        if (dronesError) return <p>Error: {dronesError}</p>;
 
         return (
           <ul className="space-y-4">
             {drones.map((drone) => (
               <li key={drone.id}>
-                <Card 
+                <DroneCard 
                   title={`Drone ID: ${drone.id}`} 
                   shortAddress={`Address: ${shortenAddress(drone.address)}`}
                   address={drone.address}
@@ -62,12 +64,30 @@ const Sidebar = () => {
         );
 
       case 1:
+        if (packagesError) return <p>Error: {packagesError}</p>;
         return (
-          <span>
-            <br></br>
-          <h5 className="mb-6 text-2xl font-semibold tracking-tight text-[#f4f4f4] text-white">Packages</h5>
-          <FormComponent onSubmit={handlePackageSubmit} />
-          </span>
+          <div>
+            <span>
+              <br></br>
+            <h5 className="mb-6 text-2xl font-semibold tracking-tight text-[#f4f4f4] text-white">Packages</h5>
+            <FormComponent onSubmit={handlePackageSubmit} />
+            </span>
+            <ul className="space-y-4">
+              {packages.map((pkg) => (
+                <li key={pkg.id}>
+                  <PackageCard
+                    id={pkg.id}
+                    name={pkg.name}
+                    longitude_start={pkg.longitude_start}
+                    latitude_start={pkg.latitude_start}
+                    longitude_dest={pkg.longitude_dest}
+                    latitude_dest={pkg.latitude_dest}
+                    status={pkg.status}
+                  />
+                </li>
+              ))};
+            </ul>
+          </div>
         );
       default:
         return null;

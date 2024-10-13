@@ -48,6 +48,8 @@ const DroneMap = () => {
     console.log(`Longitude: ${lngLat.lng}, Latitude: ${lngLat.lat}`);
   };
 
+  console.log("Current packages:", packages); // Log the current state of drones
+
   return (
     <div className="h-[100dvh]">
       <div className="h-full w-[75%]">

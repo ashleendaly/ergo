@@ -1,7 +1,7 @@
 import React from 'react';
 import blackDroneIcon from '../assets/black-drone.svg';
 
-interface CardProps {
+interface DroneCardProps {
   title: string;        
   address: string;
   shortAddress: string;
@@ -10,7 +10,7 @@ interface CardProps {
   status: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, address, shortAddress, longitude, latitude, status }) => {
+const Card: React.FC<DroneCardProps> = ({ title, address, shortAddress, longitude, latitude, status }) => {
   return (
     <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-white">
         <img src={blackDroneIcon} />

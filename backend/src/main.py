@@ -64,14 +64,18 @@ async def get_uncollected_packages():
 
 @app.post("/addPackage")
 async def submit_package(package: Package):
-    print(f"Received package: {package}")
     global package_id
     global packages
+
+    # Set the package ID and increment the global ID
     package.id = package_id
-    package_id += 1
+    print(f"Assigning package ID: {package_id}")
+    package_id += 1  # Increment the global ID after assigning
+
     packages.append(package)
-    for drone in drones:
-        print("bazinga")
+    print(f"New package added: {package}")
+    print(f"Next package ID will be: {package_id}")
+
     return {"message": "Package submitted successfully", "package": package}
 
 @app.post("/updateLocation")
