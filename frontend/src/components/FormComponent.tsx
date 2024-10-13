@@ -1,6 +1,5 @@
-// src/components/FormComponent.tsx
 import React, { useEffect, useState } from 'react';
-import StyledInput from './StyledInput'; // Ensure this is the correct path for your input component
+import StyledInput from './StyledInput';
 import { Button } from './Button';
 import { useLocation } from '../context/clickedLatLong';
 
@@ -24,8 +23,7 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
   const [formState, setFormState] = useState<number>(0)
 
   useEffect(() => {
-    if (formState == 0) {
-      // The order of these is incorrect, just roll with it  
+    if (formState == 0) { 
       setCurrentLng(location.latitude!);
       setCurrentLat(location.longitude!);
     } else if (formState == 1) {  
@@ -51,21 +49,21 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
         label="Package Name:"
         type="text"
         value={name}
-        onChange={(value) => setPackageName(value as string)} // Correctly handle input change
+        onChange={(value) => setPackageName(value as string)}
         required
       />
       <StyledInput
         label="Current Longitude:"
         type="number"
         value={longitude_start}
-        onChange={(value) => setCurrentLng(value as number)} // Correctly handle input change
+        onChange={(value) => setCurrentLng(value as number)}
         required
       />
       <StyledInput
         label="Current Latitude:"
         type="number"
         value={latitude_start}
-        onChange={(value) => setCurrentLat(value as number)} // Correctly handle input change
+        onChange={(value) => setCurrentLat(value as number)}
         required
       />
       <Button handleClick={() => setFormState(1)}>Confirm</Button>
@@ -75,18 +73,18 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
         label="Destination Longitude:"
         type="number"
         value={longitude_dest}
-        onChange={(value) => setDestLng(value as number)} // Correctly handle input change
+        onChange={(value) => setDestLng(value as number)}
         required
       />
       <StyledInput
         label="Destination Latitude:"
         type="number"
         value={latitude_dest}
-        onChange={(value) => setDestLat(value as number)} // Correctly handle input change
+        onChange={(value) => setDestLat(value as number)}
         required
       />
       <Button handleClick={() => setFormState(0)}>Confirm</Button>       
-      <Button handleClick={handleSubmit}>Submit Package</Button> {/* Handle click by calling the submit handler */}
+      <Button handleClick={handleSubmit}>Submit Package</Button>
       <br></br>
       <br></br>
     </form>

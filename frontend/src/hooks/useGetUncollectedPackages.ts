@@ -14,6 +14,7 @@ const useGetUncollectedPackages = () => {
         }
 
         const data = await response.json();
+        console.log("Fetched data:", data); // Log the fetched data
 
         if (Array.isArray(data.packages)) {
           const uncollectedPackages: Package[] = data.packages.map((pkg: any) => ({
@@ -42,6 +43,7 @@ const useGetUncollectedPackages = () => {
     return () => clearInterval(intervalId);
   }, []);
     
+  console.log("Current uncollected packages:", packages); // Log the current state of packages
 
   return { packages, loading, error };
 };

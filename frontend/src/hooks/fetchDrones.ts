@@ -31,10 +31,8 @@ const fetchDrones = () => {
       }
     };
 
-    // Fetch drones immediately and then every 5 seconds
     fetchDrones();
     const intervalId = setInterval(fetchDrones, 5000);
-
     return () => clearInterval(intervalId);
   }, []);
 
