@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from Drone import Drone
 from Package import Package
-from contracts import getLocation, send_transaction
+from contracts import getLocation, send_transaction, make_bid
 import math
 
 packages = [
