@@ -1,4 +1,3 @@
-// useSubmitPackage.ts
 import { useState } from 'react';
 
 const useSubmitPackage = () => {

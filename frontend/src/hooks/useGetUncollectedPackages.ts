@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Package } from '../models/package.ts'; // Adjust the import based on your file structure
-
+import { Package } from '../models/package.ts';
 const useGetUncollectedPackages = () => {
   const [packages, setPackages] = useState<Package[]>([]);
   const [loading, setLoading] = useState(true);
@@ -14,15 +13,9 @@ const useGetUncollectedPackages = () => {
           throw new Error('Network response was not ok');
         }
 
-        console.log("Response");
-        console.log(response);    
-
         const data = await response.json();
-        console.log("Fetched data:", data); // Log the fetched data
 
-        // Ensure the data structure matches your expectations
         if (Array.isArray(data.packages)) {
-          // Map the received packages to the Package type
           const uncollectedPackages: Package[] = data.packages.map((pkg: any) => ({
             id: pkg.id,
             name: pkg.name,
@@ -32,7 +25,6 @@ const useGetUncollectedPackages = () => {
             latitude_dest: pkg.latitude_dest,
             status: pkg.status as 'awaiting_assignment' | 'awaiting_drone',
           }));
-          console.log("packages", uncollectedPackages)
           setPackages(uncollectedPackages);
         } else {
           throw new Error('Unexpected data structure');
@@ -44,15 +36,12 @@ const useGetUncollectedPackages = () => {
       }
     };
 
-    // Fetch uncollected packages immediately and then every 5 seconds
     fetchUncollectedPackages();
     const intervalId = setInterval(fetchUncollectedPackages, 5000);
 
-    // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
     
-  console.log("Current uncollected packages:", packages); // Log the current state of packages
 
   return { packages, loading, error };
 };

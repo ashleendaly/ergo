@@ -11,9 +11,10 @@ import fetchPackages from '../hooks/useGetPackages.ts';
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { drones, error: dronesError } = fetchDrones();
-  const { packages, error: packagesError } = useGetUncollectedPackages();
   const { allPackages, loading, error } = fetchPackages();
   const { submitPackage } = useSubmitPackage();
+
+  console.log(allPackages)
 
   const handlePackageSubmit = (packageDetails: {
     name: string;
@@ -51,7 +52,7 @@ const Sidebar = () => {
         );
 
       case 1:
-        if (packagesError) return <p>Error: {packagesError}</p>;
+        if (error) return <p>Error: {error}</p>;
         return (
           <div>
             <h5 className="text-2xl font-semibold mb-3 text-white">Packages</h5>
@@ -64,10 +65,10 @@ const Sidebar = () => {
                     <PackageCard
                       id={`Package ID: ${pkg.id}`}
                       name={`Package Name: ${pkg.name}`}
-                      longitude_start={`Longitude start: ${pkg.longitude_start}`}
-                      latitude_start={`Latitude start: ${pkg.latitude_start}`}
-                      longitude_dest={`Longitude destination: ${pkg.longitude_dest}`}
-                      latitude_dest={`Latitude destination: ${pkg.latitude_dest}`}
+                      longitude_start={`Longitude start: ${pkg.longitude_start.toFixed(2)}`}
+                      latitude_start={`Latitude start: ${pkg.latitude_start.toFixed(2)}`}
+                      longitude_dest={`Longitude destination: ${pkg.longitude_dest.toFixed(2)}`}
+                      latitude_dest={`Latitude destination: ${pkg.latitude_dest.toFixed(2)}`}
                       status={`Status: ${pkg.status}`}
                     />
                   </li>
