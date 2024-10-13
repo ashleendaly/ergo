@@ -11,7 +11,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
       <li className="me-2 mt-4">
         <a
           href="#"
-          onClick={() => onTabClick(1)}
+          onClick={() => onTabClick(0)}
           className={`inline-block px-4 py-3 rounded-lg ${
             activeTab === 1 
               ? 'text-[#171717] bg-[#fafafa]'
@@ -25,7 +25,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
       <li className="me-2 mt-4">
         <a
           href="#"
-          onClick={() => onTabClick(2)}
+          onClick={() => onTabClick(1)}
           className={`inline-block px-4 py-3 rounded-lg ${
             activeTab === 2
               ? 'text-[#171717] bg-[#f4f4f4]'
@@ -39,7 +39,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
       <li className="me-3 mt-4 mb-4">
         <a
           href="#"
-          onClick={() => onTabClick(3)}
+          onClick={() => onTabClick(2)}
           className={`inline-block px-4 py-3 rounded-lg ${
             activeTab === 3
               ? 'text-[#171717] bg-[#f4f4f4]'
@@ -47,7 +47,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           }`}
           aria-current={activeTab === 3 ? 'page' : undefined}
         >
-          Edit Packages
+          Add Packages
         </a>
       </li>
     </ul>
