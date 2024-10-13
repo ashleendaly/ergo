@@ -47,7 +47,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           }`}
           aria-current={activeTab === 3 ? 'page' : undefined}
         >
-          Add Packages
+          Add Package
         </a>
       </li>
     </ul>
