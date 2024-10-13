@@ -7,16 +7,13 @@ from Package import Package
 from contracts import getLocation, send_transaction, make_bid
 import math
 
-packages = [
-                Package(id=1, name="Package 1", longitude_start=-4.269, latitude_start=55.85, longitude_dest=-4.30, latitude_dest=55.89, status="awaiting_assignment"),
-            ]
+packages = []
 
 drones = [
-            Drone(id=1, address="0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A"),
-            Drone(id=2, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"),
-            Drone(id=3, address="0x8b41eC3100aF936D0E4970F69d66F80B37085D75"),
-            Drone(id=4, address="0xCA80257794aC965Ea52187EFae78686f8A3F0C4b"),
-            Drone(id=5, address="0x0681fE329eCc94c9E45639571100511440C54B91")
+            Drone(id=1, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"),
+            Drone(id=2, address="0x8b41eC3100aF936D0E4970F69d66F80B37085D75"),
+            Drone(id=3, address="0xCA80257794aC965Ea52187EFae78686f8A3F0C4b"),
+            Drone(id=4, address="0x0681fE329eCc94c9E45639571100511440C54B91")
 ]
 
 package_id = 1
@@ -62,47 +59,61 @@ async def get_uncollected_packages():
 @app.post("/addPackage")
 async def submit_package(package: Package):
     global package_id
-    global packages
-
     package.id = package_id
-    print(f"Assigning package ID: {package_id}")
     package_id += 1
-
     packages.append(package)
-    print(f"New package added: {package}")
-    print(f"Next package ID will be: {package_id}")
 
-    return {"message": "Package submitted successfully", "package": package}
+    int_package_latitude_start = int(package.latitude_start * 10000)
+    int_package_longitude_start = int(package.longitude_start * 10000)
 
+    int_package_latitude_dest = int(package.latitude_dest * 10000)
+    int_package_longitude_dest = int(package.longitude_dest *10000)
+
+
+    # get winning drone
     minimum_bid = math.inf
     winning_drone_address = ""
+    winning_drone = None
     for drone in drones:
-        bid = make_bid(drone.address, int(package.latitude_start)*10000, int(package.longitude_start)*10000, int(package.latitude_dest)*10000, int(package.longitude_dest)*10000)
+        print(drone.address, int_package_latitude_start, int_package_longitude_start, int_package_latitude_dest, int_package_longitude_dest)
+        bid = make_bid(drone.address, int_package_latitude_start, int_package_longitude_start, int_package_latitude_dest, int_package_longitude_dest)
         if bid < minimum_bid:
             minimum_bid = bid
+            winning_drone = drone
             winning_drone_address = drone.address
 
     # update drone location to pick package
-    # set status to picked up package
-    # set package to picked up
-    # update drone location to drop off point
-    # set status to pending
-    # delete package
+    await update_location(winning_drone_address, int_package_latitude_start, int_package_longitude_start)
 
-    return {"message": "Package submitted successfully", "package": package, "winning_drone_address" : winning_drone_address}
+    # set status to picked up package
+    winning_drone.status = "transporting package"
+
+    # set package to picked up
+    package.status = "picked up"
+
+    # update drone location to drop off point
+    await update_location(winning_drone_address, int_package_latitude_dest, int_package_longitude_dest)
+
+    # set status to pending
+    winning_drone.status = "pending"
+
+    # delete package
+    packages.remove(package)
+
+    return {"message": "Package dropped"}
 
 async def update_location(address, dest_lat, dest_long):
     location = getLocation(address)
-    curr_lat = location[0]
-    curr_long = location[1]
-    increments = 5
-    increment_lat = (int(float(dest_lat)*10000)-curr_lat)/increments
-    increment_long = (int(float(dest_long)*10000)-curr_long)/increments
+    curr_lat = int(location[0] * 10000)
+    curr_long = int(location[1] * 10000)
+    increments = 3
+    increment_lat = (int(float(dest_lat))-curr_lat)/increments
+    increment_long = (int(float(dest_long))-curr_long)/increments
     for i in range(increments):
         await asyncio.sleep(1)  
         print("Updating drone location...")
         print(curr_lat+((i+1)*increment_lat))
         print(curr_long+((i+1)*increment_long))
-        send_transaction(address, curr_lat+((i+1)*increment_lat), curr_long+((i+1)*increment_long))
+        send_transaction(address, int(curr_lat+((i+1)*increment_lat)), int(curr_long+((i+1)*increment_long)))
         
 

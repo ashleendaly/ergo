@@ -34,8 +34,8 @@ def send_transaction(address, lat, long):
     
     nonce = w3.eth.get_transaction_count(account)  # Get nonce for the transaction
     transaction = contract_instance.functions.updateLocation(
-        int(location[0] - lat_increment),  # Increment location coordinates
-        int(location[1] - long_increment)
+        int(lat),  # Increment location coordinates
+        int(long)
     ).build_transaction({
         'from': account,
         'nonce': nonce,
