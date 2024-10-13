@@ -36,6 +36,34 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, onTabClick }) => {
           Packages
         </a>
       </li>
+      <li className="me-2">
+        <a
+          href="#"
+          onClick={() => onTabClick(2)}
+          className={`inline-block px-4 py-3 rounded-lg ${
+            activeTab === 2
+              ? 'text-[#171717] bg-[#f4f4f4]'
+              : 'text-white bg-[#171717] hover:bg-gray-300'
+          }`}
+          aria-current={activeTab === 2 ? 'page' : undefined}
+        >
+          General Overview
+        </a>
+      </li>
+      <li className="me-3">
+        <a
+          href="#"
+          onClick={() => onTabClick(3)}
+          className={`inline-block px-4 py-3 rounded-lg ${
+            activeTab === 3
+              ? 'text-[#171717] bg-[#f4f4f4]'
+              : 'text-white bg-[#171717] hover:bg-gray-300'
+          }`}
+          aria-current={activeTab === 3 ? 'page' : undefined}
+        >
+          Edit Packages
+        </a>
+      </li>
     </ul>
   );
 };
