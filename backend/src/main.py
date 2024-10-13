@@ -76,7 +76,7 @@ async def update_location(address, dest_lat, dest_long):
     location = getLocation(address)
     curr_lat = location[0]
     curr_long = location[1]
-    increments = 5
+    increments = 3
     increment_lat = (int(float(dest_lat)*10000)-curr_lat)/increments
     increment_long = (int(float(dest_long)*10000)-curr_long)/increments
     for i in range(increments):
