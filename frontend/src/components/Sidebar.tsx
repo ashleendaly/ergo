@@ -78,7 +78,7 @@ const Sidebar = () => {
       case 2:
         return (
           <div>
-            <h5 className="text-2xl font-semibold text-white">Add Package</h5>
+            <h5 className="text-2xl font-semibold text-white">Edit Packages</h5>
             <FormComponent onSubmit={handlePackageSubmit} />
           </div>
         );
