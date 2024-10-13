@@ -5,6 +5,7 @@ from starlette.middleware.cors import CORSMiddleware
 from Drone import Drone
 from Package import Package
 from contracts import getLocation, send_transaction
+import math
 
 packages = [
                 Package(id=1, name="Package 1", longitude_start=-4.269, latitude_start=55.85, longitude_dest=-4.30, latitude_dest=55.89, status="awaiting_assignment"),
@@ -13,7 +14,7 @@ packages = [
 drones = [
             Drone(id=1, address="0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A"),
             # Drone(id=2, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"),
-            Drone(id=3, address="0x8b41eC3100aF936D0E4970F69d66F80B37085D75"),
+            # Drone(id=3, address="0x8b41eC3100aF936D0E4970F69d66F80B37085D75"),
             Drone(id=4, address="0xCA80257794aC965Ea52187EFae78686f8A3F0C4b"),
             Drone(id=5, address="0x0681fE329eCc94c9E45639571100511440C54B91")
 ]
@@ -62,15 +63,19 @@ async def get_uncollected_packages():
 
 @app.post("/addPackage")
 async def submit_package(package: Package):
-    print(f"Received package: {package}")
     global package_id
-    global packages
     package.id = package_id
     package_id += 1
     packages.append(package)
+
+    minimum_bid = math.inf
+    winning_drone_address = ""
     for drone in drones:
-        print("bazinga")
-    return {"message": "Package submitted successfully", "package": package}
+        bid = make_bid(drone.address, int(package.latitude_start)*10000, int(package.longitude_start)*10000, int(package.latitude_dest)*10000, int(package.longitude_dest)*10000)
+        if bid < minimum_bid:
+            minimum_bid = bid
+            winning_drone_address = drone.address
+    return {"message": "Package submitted successfully", "package": package, "winning_drone_address" : winning_drone_address}
 
 async def update_location(address, dest_lat, dest_long):
     location = getLocation(address)
