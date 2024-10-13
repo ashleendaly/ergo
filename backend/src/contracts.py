@@ -16,7 +16,7 @@ def getLocation(address):
     location = contract_instance.functions.getLocation().call()
     return (location[0] / 10000, location[1] / 10000)
 
-def send_transaction(address):
+def send_transaction(address, lat_increment, long_increment):
     checksum_address = w3.to_checksum_address(address)
     contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
     location = contract_instance.functions.getLocation().call()
@@ -25,15 +25,11 @@ def send_transaction(address):
     private_key = os.getenv("PRIVATE_KEY")
     if not private_key:
         raise Exception("Private key is not set in the environment variables")
-
-    lat = location[0] - 500
-    long = location[1] - 500
-    print(lat, long)
     
     nonce = w3.eth.get_transaction_count(account)  # Get nonce for the transaction
     transaction = contract_instance.functions.updateLocation(
-        int(location[0] - 100),  # Increment location coordinates
-        int(location[1] - 100)
+        int(location[0] - lat_increment),  # Increment location coordinates
+        int(location[1] - long_increment)
     ).build_transaction({
         'from': account,
         'nonce': nonce,
