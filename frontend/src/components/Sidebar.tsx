@@ -6,6 +6,7 @@ import Card from './Card.tsx';
 import { Button } from './Button.tsx';
 import Loader from './Loader.tsx';
 import useSubmitPackage from '../hooks/useSubmitPackage.ts';
+import useGetUncollectedPackages from '../hooks/useGetUncollectedPackages.ts';
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -26,6 +27,7 @@ const Sidebar = () => {
     console.log(packageDetails);
     await submitPackage(packageDetails)
     console.log(successMessage)
+    await fetchDrones()
   };
 
   const handleClick = () => {
@@ -64,7 +66,7 @@ const Sidebar = () => {
         return (
           <span>
             <br></br>
-          <h5 className="mb-6 text-2xl font-semibold tracking-tight text-[#f4f4f4] dark:text-black">Packages</h5>
+          <h5 className="mb-6 text-2xl font-semibold tracking-tight text-[#f4f4f4] text-white">Packages</h5>
           <FormComponent onSubmit={handlePackageSubmit} />
           </span>
         );
