@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from Drone import Drone
 from Package import Package
-from contracts import getLocation, send_transaction
+from contracts import getLocation, send_transaction, make_bid
 import math
 
 packages = [
@@ -13,8 +13,8 @@ packages = [
 
 drones = [
             Drone(id=1, address="0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A"),
-            # Drone(id=2, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"),
-            # Drone(id=3, address="0x8b41eC3100aF936D0E4970F69d66F80B37085D75"),
+            Drone(id=2, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"),
+            Drone(id=3, address="0x8b41eC3100aF936D0E4970F69d66F80B37085D75"),
             Drone(id=4, address="0xCA80257794aC965Ea52187EFae78686f8A3F0C4b"),
             Drone(id=5, address="0x0681fE329eCc94c9E45639571100511440C54B91")
 ]
@@ -43,9 +43,7 @@ async def send_message(message: Message):
 @app.get("/getDrones")
 async def get_drones():
     for drone in drones:
-        print("ADDRESS IS: " + drone.address)
         location = getLocation(drone.address)
-        print(location)
         drone.latitude = location[0]
         drone.longitude = location[1]
     return {"drones": drones}
