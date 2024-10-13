@@ -62,7 +62,11 @@ const Sidebar = () => {
 
       case 1:
         return (
+          <span>
+            <br></br>
+          <h5 className="mb-6 text-2xl font-semibold tracking-tight text-[#f4f4f4] dark:text-black">Packages</h5>
           <FormComponent onSubmit={handlePackageSubmit} />
+          </span>
         );
       default:
         return null;
@@ -73,7 +77,11 @@ const Sidebar = () => {
     <div className="fixed right-0 top-0 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
       <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
       {renderContent()}
-      {activeTab === 0}
+      {activeTab === 0 && (
+        <Button handleClick={handleClick}>
+          Send drone to location
+        </Button>
+      )}
     </div>
   );
 };

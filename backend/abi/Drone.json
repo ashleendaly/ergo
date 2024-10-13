@@ -1,98 +1,246 @@
 [
-  {
-    "inputs": [
-      {
-        "internalType": "int256",
-        "name": "_latitude",
-        "type": "int256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_longitude",
-        "type": "int256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "inputs": [],
-    "name": "getLocation",
-    "outputs": [
-      {
-        "internalType": "int256",
-        "name": "",
-        "type": "int256"
-      },
-      {
-        "internalType": "int256",
-        "name": "",
-        "type": "int256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "latitude",
-    "outputs": [
-      {
-        "internalType": "int256",
-        "name": "",
-        "type": "int256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "longitude",
-    "outputs": [
-      {
-        "internalType": "int256",
-        "name": "",
-        "type": "int256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "int256",
-        "name": "_latitude",
-        "type": "int256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_longitude",
-        "type": "int256"
-      }
-    ],
-    "name": "sendDrone",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "int256",
-        "name": "_latitude",
-        "type": "int256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_longitude",
-        "type": "int256"
-      }
-    ],
-    "name": "updateLocation",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
-]
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "_latitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_longitude",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "_x",
+          "type": "int256"
+        }
+      ],
+      "name": "abs",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "_pickup_latitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_pickup_longitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_dropoff_latitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_dropoff_longitude",
+          "type": "int256"
+        }
+      ],
+      "name": "assessDistance",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "lat1",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "lat2",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "lon1",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "lon2",
+          "type": "int256"
+        }
+      ],
+      "name": "distance",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getLocation",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getSpeed",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "latitude",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "longitude",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "_pickup_latitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_pickup_longitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_dropoff_latitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_dropoff_longitude",
+          "type": "int256"
+        }
+      ],
+      "name": "makeBid",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "speed",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "x",
+          "type": "int256"
+        }
+      ],
+      "name": "sqrt",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "_latitude",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "_longitude",
+          "type": "int256"
+        }
+      ],
+      "name": "updateLocation",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]

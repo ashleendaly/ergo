@@ -24,7 +24,7 @@ const StyledInput: React.FC<StyledInputProps> = ({
         value={value}
         onChange={(e) => onChange(type === "number" ? Number(e.target.value) : e.target.value)}
         required={required}
-        className={`w-full p-2 text-white bg-gray-800 border border-gray-600 rounded focus:outline-none focus:ring focus:ring-blue-500`}
+        className={`w-half p-2 text-white bg-[#171717] border border-gray-600 rounded focus:outline-none focus:ring focus:ring-blue-500`}
       />
     </div>
   );
