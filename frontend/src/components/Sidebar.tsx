@@ -6,11 +6,13 @@ import DroneCard from './DroneCard.tsx';
 import PackageCard from './PackageCard.tsx';
 import useSubmitPackage from '../hooks/useSubmitPackage.ts';
 import useGetUncollectedPackages from '../hooks/useGetUncollectedPackages.ts';
+import fetchPackages from '../hooks/useGetPackages.ts';
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { drones, error: dronesError } = fetchDrones();
   const { packages, error: packagesError } = useGetUncollectedPackages();
+  const { allPackages, loading, error } = fetchPackages();
   const { submitPackage } = useSubmitPackage();
 
   const handlePackageSubmit = (packageDetails: {
@@ -53,11 +55,11 @@ const Sidebar = () => {
         return (
           <div>
             <h5 className="text-2xl font-semibold mb-3 text-white">Packages</h5>
-            {packages.length === 0 ? (
+            {allPackages.length === 0 ? (
               <p>No packages available.</p>
             ) : (
               <ul className="space-y-4">
-                {packages.map((pkg) => (
+                {allPackages.map((pkg) => (
                   <li key={pkg.id}>
                     <PackageCard
                       id={`Package ID: ${pkg.id}`}

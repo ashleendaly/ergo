@@ -11,6 +11,7 @@ import redDroneIcon from '../assets/red-drone.svg';
 import greenDroneIcon from '../assets/green-drone.svg';
 import { useLocation } from "../context/clickedLatLong.tsx";
 
+
 const DroneMap = () => {
   const { updateLocation } = useLocation();
   const mapRef = useRef<MapRef>(null);
