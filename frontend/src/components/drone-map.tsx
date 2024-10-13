@@ -62,7 +62,7 @@ const DroneMap = () => {
 
   return (
     <div className="h-[100dvh]">
-      <div className="h-full w-[75%]">
+      <div className="h-full w-[100%]">
         <Map
           ref={mapRef}
           mapboxAccessToken={import.meta.env.VITE_REACT_APP_MAPBOX_ACCESS_TOKEN}
