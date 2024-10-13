@@ -9,9 +9,7 @@ from contracts import getLocation, send_transaction
 addresses = ["0x9C813Ac3ba8333D97d3D96A0C70e6b2dD8Ddc7A8", "0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"]
 
 packages = [
-                Package(id=1, name="Package 1", longitude_start=40.7128, latitude_start=-74.0060, longitude_dest=34.0522, latitude_dest=-118.2437, status="awaiting_assignment"),
-                Package(id=2, name="Package 2", longitude_start=51.5074, latitude_start=-0.1278, longitude_dest=48.8566, latitude_dest=2.3522, status="in_transit"),
-                Package(id=3, name="Package 3", longitude_start=35.6895, latitude_start=139.6917, longitude_dest=37.7749, latitude_dest=-122.4194, status="awaiting_drone")
+                Package(id=1, name="Package 1", longitude_start=-4.269, latitude_start=55.85, longitude_dest=-4.30, latitude_dest=55.89, status="awaiting_assignment"),
             ]
 
 drones = [
@@ -65,6 +63,7 @@ async def get_uncollected_packages():
 async def submit_package(package: Package):
     print(f"Received package: {package}")
     global package_id
+    global packages
     package.id = package_id
     package_id += 1
     packages.append(package)

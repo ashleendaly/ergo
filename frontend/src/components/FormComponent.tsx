@@ -25,11 +25,12 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
 
   useEffect(() => {
     if (formState == 0) {
-      setCurrentLat(location.latitude!);
-      setCurrentLng(location.longitude!);
-    } else if (formState == 1) {
-      setDestLat(location.latitude!);
-      setDestLng(location.longitude!);
+      // The order of these is incorrect, just roll with it  
+      setCurrentLng(location.latitude!);
+      setCurrentLat(location.longitude!);
+    } else if (formState == 1) {  
+      setDestLng(location.latitude!);
+      setDestLat(location.longitude!);
     }
   }, [location])
 

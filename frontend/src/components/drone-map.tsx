@@ -25,6 +25,8 @@ const DroneMap = () => {
 
   const { packages, loading: packagesLoading, error: packagesError } = useGetUncollectedPackages();
 
+  console.log("Current uncollected packages:", packages); // Log the current state of packages
+
   // Use the fetchDrones hook to get the drones
   const { drones, loading: dronesLoading, error: dronesError } = fetchDrones();
 
@@ -81,14 +83,14 @@ const DroneMap = () => {
           {packages.map((pkg: Package) => (
             <Marker
               key={pkg.id}
-              longitude={pkg.longitude_dest} // Assuming you want to place the marker at the destination
-              latitude={pkg.latitude_dest}
+              longitude={pkg.longitude_start}
+              latitude={pkg.latitude_start}
               style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
             >
               <div
                 style={{
-                  width: '15px',
-                  height: '15px',
+                  width: '10px',
+                  height: '10px',
                   backgroundColor: pkg.status === 'awaiting_assignment' ? 'red' : 'yellow',
                   borderRadius: '2px', // Optional: to give it a slight rounded corner
                 }}

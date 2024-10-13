@@ -20,7 +20,7 @@ const useSubmitPackage = () => {
       latitude_start: packageDetails.latitude_start,
       longitude_dest: packageDetails.longitude_dest,
       latitude_dest: packageDetails.latitude_dest,
-      status: 'pending',
+      status: 'awaiting_assignment',
     };
 
     setLoading(true);
