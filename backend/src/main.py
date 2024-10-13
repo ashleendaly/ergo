@@ -14,7 +14,10 @@ packages = [
 
 drones = [
             Drone(id=1, address="0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A"),
-            Drone(id=2, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473")
+            Drone(id=2, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"),
+            Drone(id=3, address="0x8b41eC3100aF936D0E4970F69d66F80B37085D75"),
+            Drone(id=4, address="0xCA80257794aC965Ea52187EFae78686f8A3F0C4b"),
+            Drone(id=5, address="0x0681fE329eCc94c9E45639571100511440C54B91")
 ]
 
 package_id = 1
@@ -71,20 +74,17 @@ async def submit_package(package: Package):
         print("bazinga")
     return {"message": "Package submitted successfully", "package": package}
 
-# Function to run updateLocation every 5 seconds in the background
+@app.post("/updateLocation")
 async def update_location(address, dest_lat, dest_long):
     location = getLocation(address)
     curr_lat = location[0]
     curr_long = location[1]
     increments = 8
-    for i in range(8):
+    increment_lat = (dest_lat-curr_lat)/increments
+    increment_long = (dest_long-curr_long)/increments
+    for i in range(increments):
         await asyncio.sleep(1)  
         print("Updating drone location...")
-        send_transaction(address, lat_incement, long_increment)
+        send_transaction(address, (i+1)*increment_lat, (i+1)*increment_long)
         
 
-# Startup event handler to trigger the background task
-@app.on_event("startup")
-async def update_location():
-    # asyncio.create_task(run_location_updater())  # Launch background task on startup
-    print("bazinga")
