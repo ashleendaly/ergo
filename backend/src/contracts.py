@@ -10,7 +10,7 @@ with open('../abi/Drone.json') as abi_file:
 
 w3 = Web3(Web3.HTTPProvider('https://sepolia.infura.io/v3/' + os.getenv("INFURA_API_KEY")))
 
-def getLocation(address):
+def get_location(address):
     checksum_address = w3.to_checksum_address(address)
     contract_instance = w3.eth.contract(address=checksum_address, abi=contract_abi)
     location = contract_instance.functions.getLocation().call()
