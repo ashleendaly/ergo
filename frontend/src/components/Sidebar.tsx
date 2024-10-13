@@ -5,29 +5,22 @@ import FormComponent from './FormComponent.tsx';
 import Card from './Card.tsx';
 import { Button } from './Button.tsx';
 import Loader from './Loader.tsx';
-import useSubmitPackage from '../hooks/useSubmitPackage.ts';
-import useGetUncollectedPackages from '../hooks/useGetUncollectedPackages.ts';
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { drones, loading, error } = fetchDrones();
-  const {submitPackage, successMessage} = useSubmitPackage()
-
   console.log("ran fetchDrones");
   console.log(drones);
 
-  const handlePackageSubmit = async (packageDetails: {
-    name: string;
-    longitude_start: number | '';
-    latitude_start: number | '';
-    longitude_dest: number | '';
-    latitude_dest: number | '';
+  const handlePackageSubmit = (packageDetails: {
+    packageName: string;
+    currentLat: number | '';
+    currentLng: number | '';
+    destLat: number | '';
+    destLng: number | '';
   }) => {
     console.log("Package form submitted with values:");
     console.log(packageDetails);
-    await submitPackage(packageDetails)
-    console.log(successMessage)
-    await fetchDrones()
   };
 
   const handleClick = () => {
@@ -42,6 +35,7 @@ const Sidebar = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 0:
+        if (loading) return <Loader />;
         if (error) return <p>Error: {error}</p>;
 
         return (
@@ -65,7 +59,7 @@ const Sidebar = () => {
         return (
           <span>
             <br></br>
-          <h5 className="mb-6 text-2xl font-semibold tracking-tight text-[#f4f4f4] text-white">Packages</h5>
+          <h5 className="mb-6 text-2xl font-semibold tracking-tight text-[#f4f4f4] dark:text-black">Packages</h5>
           <FormComponent onSubmit={handlePackageSubmit} />
           </span>
         );
@@ -75,10 +69,14 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="fixed right-0 top-0 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
+    <div className="bg-opacity-50 z-10 fixed right-0 top-20 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
       <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
       {renderContent()}
-      {activeTab === 0}
+      {activeTab === 0 && (
+        <Button handleClick={handleClick}>
+          Send drone to location
+        </Button>
+      )}
     </div>
   );
 };
