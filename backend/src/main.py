@@ -114,7 +114,7 @@ async def submit_package(package: Package):
     return {"message": "Package Dropped"}
 
 async def update_location(address, dest_lat, dest_long):
-    location = getLocation(address)
+    location = get_location(address)
     curr_lat = int(location[0] * 10000)
     curr_long = int(location[1] * 10000)
     increments = 3
