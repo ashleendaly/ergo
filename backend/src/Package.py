@@ -7,4 +7,4 @@ class Package(BaseModel):
     latitude_start: float
     longitude_dest: float
     latitude_dest: float
-    status: str
+    status: str = "pending"

@@ -6,21 +6,21 @@ import { useLocation } from '../context/clickedLatLong';
 
 interface FormComponentProps {
   onSubmit: (packageDetails: {
-    packageName: string;
-    currentLat: number | '';
-    currentLng: number | '';
-    destLat: number | '';
-    destLng: number | '';
+    name: string;
+    longitude_start: number | '';
+    latitude_start: number | '';
+    longitude_dest: number | '';
+    latitude_dest: number | '';
   }) => void;
 }
 
 const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
   const {location} = useLocation()
-  const [packageName, setPackageName] = useState<string>('');
-  const [currentLat, setCurrentLat] = useState<number | ''>('');
-  const [currentLng, setCurrentLng] = useState<number | ''>('');
-  const [destLat, setDestLat] = useState<number | ''>('');
-  const [destLng, setDestLng] = useState<number | ''>('');
+  const [name, setPackageName] = useState<string>('');
+  const [longitude_start, setCurrentLat] = useState<number | ''>('');
+  const [latitude_start, setCurrentLng] = useState<number | ''>('');
+  const [longitude_dest, setDestLat] = useState<number | ''>('');
+  const [latitude_dest, setDestLng] = useState<number | ''>('');
   const [formState, setFormState] = useState<number>(0)
 
   useEffect(() => {
@@ -36,11 +36,11 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
   const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
     onSubmit({
-      packageName,
-      currentLat,
-      currentLng,
-      destLat,
-      destLng,
+      name,
+      longitude_start,
+      latitude_start,
+      longitude_dest,
+      latitude_dest,
     });
     };
 
@@ -49,14 +49,14 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
       <StyledInput
         label="Package Name:"
         type="text"
-        value={packageName}
+        value={name}
         onChange={(value) => setPackageName(value as string)} // Correctly handle input change
         required
       />
       <StyledInput
         label="Current Longitude:"
         type="number"
-        value={currentLng}
+        value={longitude_start}
         onChange={(value) => setCurrentLng(value as number)} // Correctly handle input change
         required
       />
@@ -65,24 +65,24 @@ const FormComponent: React.FC<FormComponentProps> = ({ onSubmit }) => {
       <StyledInput
         label="Current Latitude:"
         type="number"
-        value={currentLat}
+        value={latitude_start}
         onChange={(value) => setCurrentLat(value as number)} // Correctly handle input change
         required
       />
       <Button handleClick={() => setFormState(1)}>Confirm</Button>
-      <StyledInput
-        label="Destination Longitude:"
-        type="number"
-        value={destLng}
-        onChange={(value) => setDestLng(value as number)} // Correctly handle input change
-        required
-      />
       <br></br>
       <br></br> 
       <StyledInput
+        label="Destination Longitude:"
+        type="number"
+        value={longitude_dest}
+        onChange={(value) => setDestLng(value as number)} // Correctly handle input change
+        required
+      />
+      <StyledInput
         label="Destination Latitude:"
         type="number"
-        value={destLat}
+        value={latitude_dest}
         onChange={(value) => setDestLat(value as number)} // Correctly handle input change
         required
       />

@@ -5,22 +5,27 @@ import FormComponent from './FormComponent.tsx';
 import Card from './Card.tsx';
 import { Button } from './Button.tsx';
 import Loader from './Loader.tsx';
+import useSubmitPackage from '../hooks/useSubmitPackage.ts';
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { drones, loading, error } = fetchDrones();
+  const {submitPackage, successMessage} = useSubmitPackage()
+
   console.log("ran fetchDrones");
   console.log(drones);
 
-  const handlePackageSubmit = (packageDetails: {
-    packageName: string;
-    currentLat: number | '';
-    currentLng: number | '';
-    destLat: number | '';
-    destLng: number | '';
+  const handlePackageSubmit = async (packageDetails: {
+    name: string;
+    longitude_start: number | '';
+    latitude_start: number | '';
+    longitude_dest: number | '';
+    latitude_dest: number | '';
   }) => {
     console.log("Package form submitted with values:");
     console.log(packageDetails);
+    await submitPackage(packageDetails)
+    console.log(successMessage)
   };
 
   const handleClick = () => {

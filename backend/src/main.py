@@ -57,14 +57,14 @@ async def get_packages():
 
 @app.get("/getUncollectedPackages")
 async def get_uncollected_packages():
-    uncollected_statuses = {"awaiting_assignment", "awaiting_drone", "in_transit"}
-    uncollected_packages = [package for package in packages if package["status"] in uncollected_statuses]
+    uncollected_statuses = {"awaiting_assignment", "awaiting_drone"}
+    uncollected_packages = [package for package in packages if package.status in uncollected_statuses]
     return {"packages": uncollected_packages}
 
 @app.post("/addPackage")
 async def submit_package(package: Package):
     print(f"Received package: {package}")
-    package.status = "pending"
+    global package_id
     package.id = package_id
     package_id += 1
     packages.append(package)
