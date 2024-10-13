@@ -26,9 +26,6 @@ const Sidebar = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 0:
-        return <h5 className="text-2xl font-semibold text-white">General Overview</h5>;
-
-      case 1:
         if (dronesError) return <p>Error: {dronesError}</p>;
 
         return (
@@ -50,7 +47,7 @@ const Sidebar = () => {
           </div>
         );
 
-      case 2:
+      case 1:
         if (packagesError) return <p>Error: {packagesError}</p>;
         return (
           <div>
@@ -77,7 +74,7 @@ const Sidebar = () => {
           </div>
         );
 
-      case 3:
+      case 2:
         return (
           <div>
             <h5 className="text-2xl font-semibold text-white">Edit Package</h5>
