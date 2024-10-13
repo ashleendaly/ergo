@@ -4,10 +4,11 @@ import fetchDrones from '../hooks/fetchDrones.ts';
 import FormComponent from './FormComponent.tsx';
 import DroneCard from './DroneCard.tsx';
 import PackageCard from './PackageCard.tsx';
-import { Button } from './Button.tsx';
-import Loader from './Loader.tsx';
+import Modal from './Modal.tsx';
 import useSubmitPackage from '../hooks/useSubmitPackage.ts';
 import useGetUncollectedPackages from '../hooks/useGetUncollectedPackages.ts';
+
+// const [isModalOpen, setIsModalOpen] = useState(false);
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -87,6 +88,7 @@ const Sidebar = () => {
             </ul>
           </div>
         );
+
       default:
         return null;
     }
@@ -94,9 +96,15 @@ const Sidebar = () => {
 
   return (
     <div className="overflow-y-scroll bg-opacity-50 z-10 fixed right-0 top-20 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
+    <span>
+    <div className="fixed overflow-auto right-0 top-0 h-full w-[25%] p-4 text-white shadow-lg space-y-4" style={{ backgroundColor: '#343332' }}>
       <Tabs activeTab={activeTab} onTabClick={setActiveTab} />
       {renderContent()}
-      {activeTab === 0}
+    </div>
+    {/* <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <div>Edit your package details here.</div>
+    </Modal> */}
+    </span>
     </div>
   );
 };
