@@ -13,8 +13,8 @@ packages = [
 
 drones = [
             Drone(id=1, address="0xe70FEB6c3191465ecfCe2dAe047c92657a9dde5A"),
-            # Drone(id=2, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"),
-            # Drone(id=3, address="0x8b41eC3100aF936D0E4970F69d66F80B37085D75"),
+            Drone(id=2, address="0x58277E65DF3b1bB5A9bDD4AA130A1f4711b70473"),
+            Drone(id=3, address="0x8b41eC3100aF936D0E4970F69d66F80B37085D75"),
             Drone(id=4, address="0xCA80257794aC965Ea52187EFae78686f8A3F0C4b"),
             Drone(id=5, address="0x0681fE329eCc94c9E45639571100511440C54B91")
 ]
