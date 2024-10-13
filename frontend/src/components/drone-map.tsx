@@ -6,7 +6,7 @@ import fetchDrones from '../hooks/fetchDrones.ts';
 import useGetUncollectedPackages from '../hooks/useGetUncollectedPackages.ts';
 import { Drone } from '../models/drone';
 import { Package } from '../models/package';
-
+import Loader   from "./Loader.tsx";
 import redDroneIcon from '../assets/red-drone.svg';
 import greenDroneIcon from '../assets/green-drone.svg';
 
@@ -30,8 +30,8 @@ const DroneMap = () => {
   // Use the fetchDrones hook to get the drones
   const { drones, loading: dronesLoading, error: dronesError } = fetchDrones();
 
-  if (dronesLoading || packagesLoading) {
-    return <div>Loading...</div>; // Loading state for both drones and packages
+  if (loading) {
+    return <div>Loading drones...</div>; // Loading state
   }
 
   if (dronesError) {

@@ -40,7 +40,6 @@ const Sidebar = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 0:
-        if (loading) return <Loader />;
         if (error) return <p>Error: {error}</p>;
 
         return (
