@@ -2,7 +2,7 @@
 
 ![ergo](docs/ergo.png)  
 
-Ergo is a blockchain-based drone management application. Users can to deliver packages to any location within Glasgow and track drone locations and deliveries in real-time.
+Ergo is a blockchain-based drone delivery and management application. Users can to deliver packages to any location within Glasgow and track drone locations and deliveries in real-time.
 
 ---
 
