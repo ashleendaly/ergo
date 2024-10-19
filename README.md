@@ -6,11 +6,11 @@ A brief introduction to your project. Explain the main problem it solves and the
 - **Event Name**: [Do You Have The GUTS?]([https://hackathon-link.com](https://fixr.co/en-US/event/do-you-have-the-guts-2024-tickets-421119342))
 - **Date**: 12/10/2024 - 13/10/2024
 - **Team Members**:
-  - [Connor Coull](https://github.com/member1)
-  - [Cammy Craig](https://github.com/member2)
-  - [Cameron Early](https://github.com/member3)
-  - [Joanna Jardine](https://github.com/member4)
-  - [Ashleen Daly](https://github.com/member4)
+  - [Connor Coull](https://github.com/ConnorCoull)
+  - [Cammy Craig](https://github.com/cammycraig)
+  - [Cameron Early](https://github.com/DastardlySky)
+  - [Joanna Jardine](https://github.com/epicjoanna)
+  - [Ashleen Daly](https://github.com/ashleendaly) 
 
 ---
 
